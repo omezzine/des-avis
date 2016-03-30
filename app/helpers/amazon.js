@@ -128,7 +128,9 @@ class AmazonHelper {
                 }
             }, {
                 checked: true
-            }, {multi: true}, function(err, items) {
+            }, {
+                multi: true
+            }, function(err, items) {
                 if (err) {
                     console.log(err);
                 }
@@ -138,6 +140,23 @@ class AmazonHelper {
         return promise;
     }
 
+    static DeleteAmazonItems(items) {
+        let promise = new Promise(function(resolve, reject) {
+            let ids = items.map((item) => item.id);
+            AmazonItem.remove({
+                _id: {
+                    $in: ids
+                }
+            }, function(err, items) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(items);
+                }
+            });
+        });
+        return promise;
+    }
 
 
 

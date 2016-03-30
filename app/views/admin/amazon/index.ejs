@@ -5,11 +5,14 @@
     <%- partial('partials/admin/_categories_filter', {categories: categories}) %>
 </div>
 
-<form id="create-items" action="/admin/amazon/create" method="post">
+<form id="form" method="post">
 <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
 <div class="row" style="margin-bottom: 10px;">
     <div class="col-md-8">
-        <button type="submit" class="btn btn-default" > Create Items </button>
+        <% if (allowCreate) { %>
+        <button type="submit" data-action="/admin/amazon/create" id="create-items" class="btn btn-default"> Create Items </button>
+        <% } %>
+        <button type="submit" data-action="/admin/amazon/delete" id="delete-items" class="btn btn-danger"> Delete Items </button>
     </div>
 </div>
 <div class="row">    
@@ -34,7 +37,13 @@
                     <input type="hidden" name="item[<%=item._id%>][thumbnail]" value="<%=item.thumbnail%>" />
                     <img src="<%=item.thumbnail%>" alt=""/>
                 </th>
-                <td><textarea name="item[<%=item._id%>][label]" style="width: 100%; display:block;"><%= item.label %></textarea></td>
+                <td>
+                <% if (allowCreate) { %>
+                <textarea name="item[<%=item._id%>][label]" style="width: 100%; display:block;"><%= item.label %></textarea>
+                <% } else { %>
+                    <%= item.label %>
+                <% }%>
+                </td>
                 <td>
                     <input type="hidden" name="item[<%=item._id%>][category]" value="<%=item.category._id%>" />
                     <%= (item.category)?(item.category.label):('') %>

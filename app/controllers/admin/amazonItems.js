@@ -12,10 +12,10 @@ class AmazonItemsController {
     // Listing
     index(req, res) {
         // query params
-        let page = req.query.page || 1;
-        let limit = req.query.limit || 10;
-        let category = req.query.category || undefined;
-        let query = {
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 10;
+        const category = req.query.category || undefined;
+        const query = {
             checked: req.query.checked || false
         }
         // data
@@ -28,7 +28,8 @@ class AmazonItemsController {
                 pages: data[0].pages,
                 current_page: data[0].page,
                 current_limit: data[0].limit,
-                categories: data[1]
+                categories: data[1],
+                allowCreate: (query.checked == "true")?(false):(true)
             });
         });
     }
@@ -41,8 +42,20 @@ class AmazonItemsController {
         let amazonItemsUpdatePromise = AmazonHelper.UpdateAmazonItems(items);
 
         Promise.all([itemsPromise, amazonItemsUpdatePromise]).then(function(data) {
+            req.flash('info', 'Items has been successfully created');
             res.status(200).json({message: 'Items Has been Created'});
         });
+    }
+
+    delete(req, res) {
+        let items = JSON.parse(req.body.items);
+        AmazonHelper.DeleteAmazonItems(items).then(function(data) {
+            req.flash('info', 'Items has been successfully deleted');
+            res.status(200).json({message: 'Items has been successfully deleted'});
+        }, function(err) {
+            req.flash('error', 'Unable to delete Items');
+            res.status(200).json(err);
+        })
     }
 
 }

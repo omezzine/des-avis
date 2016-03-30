@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-
+    $form = $('#form');
     function formatJson(object) {
         var _tmp = [];
 
@@ -20,7 +20,10 @@ jQuery(document).ready(function() {
         jQuery("input:checkbox").prop('checked', jQuery(this).prop("checked"));
     });
 
-    $('#create-items').on('submit', function(e) {
+    $form.find('button[type="submit"]').on('click', function(){
+        $form.attr('action', $(this).attr('data-action'));
+    })
+    $form.on('submit', function(e) {
         e.preventDefault();
         var $form = $(this);
         var data = formatJson($form.serializeObject().item);
@@ -33,6 +36,7 @@ jQuery(document).ready(function() {
 	            type: $form.attr('method'),
 	            data: {items: JSON.stringify(data), _csrf: $form.find('[name="_csrf"]').val()},
 	            success: function(html) {
+                    window.location.reload();
 	            },
 	            error: function() {
 	            }

@@ -103,6 +103,7 @@ module.exports = function(app) {
 	amazonItemsRouter
 		.get('/items', AmazonItemsController.index)
 		.post('/create', AmazonItemsController.create)
+		.post('/delete', AmazonItemsController.delete)
 	app.use('/admin/amazon', amazonItemsRouter);
 
 	
