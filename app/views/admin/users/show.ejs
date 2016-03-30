@@ -1,0 +1,37 @@
+<% layout('/layouts/admin') -%>
+
+<div class="row">
+
+    <div class="form-group">
+        <label>Sex</label>
+        <p class="form-control-static"><%= user.sex %></p>
+    </div>
+
+    <div class="form-group">
+        <label>Birthday</label>
+        <p class="form-control-static"><%= moment(user.birthday).format('LL')%></p>
+    </div>
+
+    <div class="form-group">
+        <label>Username</label>
+        <p class="form-control-static"><%= user.display_name %></p>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <p class="form-control-static"><%= user.display_email %></p>
+    </div>
+
+    <div class="form-group">
+        <label>Provider</label>
+        <p class="form-control-static"><%= user.provider %></p>
+    </div>
+
+    <div class="form-group">
+        <label>Created at</label>
+        <p class="form-control-static"><%= moment(user.created_at).format('LLL') %></p>
+    </div>
+    <div class="form-group">
+        <label>Updated at</label>
+        <p class="form-control-static"><%= moment(user.updated_at).format('LLL') %></p>
+    </div>
+</div>

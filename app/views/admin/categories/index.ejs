@@ -1,0 +1,42 @@
+<% layout('/layouts/admin') -%>
+
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <ul class="nav nav-list categories">
+                <% categories.forEach(function(category){ %>
+                    <li class="nav-header"  data-toggle="collapse" data-target="#<%=category._id%>">
+                      <span class="header row">
+                       <div class="col-md-9">
+                            <%= category.label %> 
+                        </div>
+                        <div class="col-md-3 actions">
+                            <a href="/admin/categories/<%=category._id%>">Show</a> &nbsp;|&nbsp;
+                            <a href="/admin/categories/<%=category._id%>" data-method="delete">Delete</a> &nbsp;|&nbsp;
+                            <a href="/admin/categories/<%=category._id%>/edit">Edit</a> 
+                        </div>
+                      </span>
+                        <% if (category.childrens.length > 0) { %>
+                            <ul id="<%=category._id%>"  class="nav nav-list collapse sub-categories">
+                                <% category.childrens.forEach(function(category){ %>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <%= category.label %> (<%= category.slug %>)
+                                            </div>
+                                            <div class="col-md-6 actions">
+                                                <a href="/admin/categories/<%=category._id%>">Show</a> &nbsp;|&nbsp;
+                                                <a href="/admin/categories/<%=category._id%>" data-method="delete">Delete</a> &nbsp;|&nbsp;
+                                                <a href="/admin/categories/<%=category._id%>/edit">Edit</a>     
+                                            </div>
+                                        </div>
+                                    </li>
+                                 <%})%>
+                            </ul>
+                        <% } %>
+                    </li>
+                <%})%>
+            <ul>
+        </div>
+    </div>
+</div>
+

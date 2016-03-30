@@ -1,0 +1,12 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<div class="dropdown pull-right">
+  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+  <%= current_limit %> per page
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <% for(var i = 1; i < 10; i++) { %>
+     <% params.limit = i * 10; %>
+     <li><a href="?<%=qs.stringify(params)%>"><%= params.limit %></a></li>
+    <% } %>
+  </ul>
+</div>

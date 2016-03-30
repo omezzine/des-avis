@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Avis <%= title || '' %> </title>
+        <meta name="token" content="<%= csrf_token %>">
+        <!-- Bootstrap Core CSS -->
+        <link href="/frontend/css/bootstrap.min.css" rel="stylesheet">
+        <!-- fontawesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Custom Fonts -->
+        <link href="/frontend/css/styles.css" rel="stylesheet" type="text/css">
+        <!-- star rating -->
+        <link href="/frontend/css/star-rating.min.css" rel="stylesheet">
+        <!-- jQuery -->
+        <script src="/frontend/javascripts/libs/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <%- partial('partials/_flash') %>
+        <%- partial ('partials/front/navbar') %>
+        <% if (locals.two_columns || two_columns) { %>
+            <div class="container avis-container two-columns">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="row main">
+                                <%- body %>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1 col-sm-12 right-bar">
+                            <%- block('right-bar') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } else {%>
+            <div class="fluid-container one-column">
+                <div class="container"> 
+                    <%- body %>
+                </div>
+            </div>
+        <% } %>
+        <%- partial ('partials/front/footer') %>
+        <a href="javascript:void(0)" class="cd-top"><i class="fa fa-angle-up"></i></a>
+        <%- partial ('partials/front/popup/forgot_password') %>
+        <%- partial ('partials/front/popup/signup') %>
+        <%- partial ('partials/front/popup/warning') %>
+        <%- partial ('partials/front/popup/success') %>
+        <script src="/frontend/javascripts/libs/datepicker.min.js"></script>
+        <script src="/frontend/javascripts/libs/star-rating.min.js"></script>
+        <script src="/frontend/javascripts/libs/rssb-buttons.js"></script>
+        <script src="/frontend/javascripts/ajaxTools.js"></script>
+        <script src="/frontend/javascripts/comments.js"></script>
+        <script src="/frontend/javascripts/search.js"></script>
+        <script src="/frontend/javascripts/libs/underscore.min.js"></script>
+        <script src="/frontend/javascripts/libs/bootstrap.min.js"></script>
+        <script src="/frontend/javascripts/libs/typehead.min.js"></script>
+        <script src="/frontend/javascripts/libs/bloodhound.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="form" role="form" method="post" action="/auth/signup" data-auth-signup>
+      <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Créer un compte</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="lb">Sexe:</label>
+            <div class="text-left">
+              <label class="radio-inline"><input type="radio" value="M" name="sex" required="true">M</label>
+              <label class="radio-inline"><input type="radio" value="F" name="sex" required="true">F</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="lb">E-mail</label>
+            <input type="email" name="email" class="form-control" required="true">
+          </div>
+          <div class="form-group">
+            <label class="lb">Date de naissance</label>
+            <input class="form-control datepicker" type="text" name="birthday" required="true" data-date-format="mm/dd/yyyy">
+          </div>
+          <div class="form-group">
+            <label class="lb">Mot de passe</label>
+            <input type="password" name="password" class="form-control" required="true" minlength="5">
+          </div>
+          <div class="form-group">
+            <label class="lb">confirmer Mot de passe</label>
+            <input type="password" name="confirm_password" class="form-control"  required="true" minlength="5">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary">Créer</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

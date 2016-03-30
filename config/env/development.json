@@ -1,0 +1,28 @@
+{
+    "database": {
+        "uri": "mongodb://localhost:27017/des-avis-dev",
+        "username": "",
+        "password": ""
+    },
+    "smtp": {
+        "host": "smtp.des-avis.fr",
+        "port": "587",
+        "user": "noreply@des-avis.fr",
+        "pass": "devpassword01A"
+    },
+    "facebook": {
+	    "clientID": "148258012228565",
+	    "clientSecret": "d78fb9b0fbc55b653a0df0f5372ed5e3",
+	    "callbackURL": "http://localhost:3000/auth/facebook/callback"
+    },
+    "google": {
+	    "clientID": "1055073594096-bfkq57epgk1fo0mlg00fr5avbb4d7t39.apps.googleusercontent.com",
+	    "clientSecret": "WXhvWDS6rAF4AmLBY1d9DwyF",
+	    "callbackURL": "http://localhost:3000/auth/google/callback"
+    },
+    "amazon": {
+        "awsId": "AKIAIRRV77YJLKSFDCOQ",
+        "awsSecret": "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",
+        "assocId": "deav-21"
+    }
+}

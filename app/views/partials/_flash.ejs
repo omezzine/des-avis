@@ -1,0 +1,22 @@
+<% if (messages.info && messages.info.length) {%>
+  <div class="fade in alert alert-info">
+    <button class="close" type="button" data-dismiss="alert">×</button>
+    <ul>
+      <% for(var inf in messages.info) { %>
+        <li><%= messages.info[inf] %></li>
+      <% } %>
+    </ul>
+  </div>
+<% } %>
+
+<% if (messages.error && messages.error.length) { %>
+  <div class="fade in alert alert-warning">
+    <button class="close" type="button" data-dismiss="alert">×</button>
+    <ul>
+      <% for(var inf in messages.error) { %>
+        <li><%= messages.error[inf] %></li>
+      <% } %>
+    </ul>
+  </div>
+<% } %>
+

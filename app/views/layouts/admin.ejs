@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= title %> | des-avis.fr | Admin</title>
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="token" content="<%= csrf_token %>">
+        <!-- Bootstrap Core CSS -->
+        <link href="/backend/css/bootstrap.min.css" rel="stylesheet">
+        <!-- datepicker CSS -->
+        <link href="/backend/css/datepicker.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="/backend/css/metisMenu.min.css" rel="stylesheet">
+        <!-- Timeline CSS -->
+        <link href="/backend/css/timeline.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="/backend/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Morris Charts CSS -->
+        <link href="/backend/css/morris.css" rel="stylesheet">
+        <!-- custom CSS -->
+        <link href="/backend/css/custom.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="/backend/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Jquery -->
+        <script src="/backend/js/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <%- partial('partials/_flash') %>
+            <%- partial ('partials/admin/navbar') %>
+            <!-- Page Content -->
+                <div id="page-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1 class="page-header"><%= title %></h1>
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>
+                        <%- body %>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+            <!-- /#page-wrapper -->
+            
+        </div>
+        <!-- /#wrapper -->
+        <!-- underscore -->
+        <script src="/backend/js/underscore.min.js"></script>
+        <!-- serializeObject -->
+        <script src="/backend/js/serializeObject.js"></script>
+        <!-- utils -->
+        <script src="/backend/js/utils.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/backend/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="/backend/js/metisMenu.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="/backend/js/sb-admin-2.js"></script>
+        <!-- restfulizer -->
+        <script src="/backend/js/jquery.restfulizer.js"></script>
+        <!-- datepicker -->
+        <script src="/backend/js/datepicker.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                jQuery('[data-method]').restfulizer();
+                $('.datepicker').datepicker({
+                    autoclose: true
+                });
+            });
+        </script>
+
+    </body>
+</html>

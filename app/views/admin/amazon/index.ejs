@@ -1,0 +1,52 @@
+<% layout('/layouts/admin') -%>
+
+<div class="row" style="margin-bottom: 10px">
+    <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
+    <%- partial('partials/admin/_categories_filter', {categories: categories}) %>
+</div>
+
+<form id="create-items" action="/admin/amazon/create" method="post">
+<%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+<div class="row" style="margin-bottom: 10px;">
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-default" > Create Items </button>
+    </div>
+</div>
+<div class="row">    
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">        
+                    <div class="checkbox-inline">
+                        <label><input type="checkbox" id="select-all"/> All </label>
+                    </div>
+                </th>
+                <th>Thumbnail</th>
+                <th>Label</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach(function(item){ %>
+            <tr>
+                <th class="text-center"><input type="checkbox" name="item[<%=item._id%>][id]" value="<%=item._id%>"/></th>
+                <th class="thumbnail" style="margin-bottom: 0px;">
+                    <input type="hidden" name="item[<%=item._id%>][thumbnail]" value="<%=item.thumbnail%>" />
+                    <img src="<%=item.thumbnail%>" alt=""/>
+                </th>
+                <td><textarea name="item[<%=item._id%>][label]" style="width: 100%; display:block;"><%= item.label %></textarea></td>
+                <td>
+                    <input type="hidden" name="item[<%=item._id%>][category]" value="<%=item.category._id%>" />
+                    <%= (item.category)?(item.category.label):('') %>
+                </td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table>   
+</div>
+</form>
+<div class="row">
+    <%- partial('partials/admin/_pagination', {baseUrl: "/admin/items", pages: pages, current_page: current_page}) %>
+</div>
+
+<script src="/backend/js/amazon.js"></script>

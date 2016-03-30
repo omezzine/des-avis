@@ -1,0 +1,43 @@
+<% layout('/layouts/admin') -%>
+
+<div class="row" style="margin-bottom: 10px">
+    <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
+    <%- partial('partials/admin/_categories_filter', {categories: categories}) %>
+</div>
+
+<div class="row">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Thumbnail</th>             
+                <th>Label</th>
+                <th>Visits</th>
+                <th>Category</th>
+                <th>Provider</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach(function(item){ %>
+            <tr>
+                <th class="thumbnail">
+                    <img src="<%=item.thumbnail%>" alt="<%=item.label%>"/>
+                </th>
+                <td><a href="<%= LinkGenerator.GenerateItemUrl(item.category.slug, item.slug) %>" target="_blank"><%= item.label %></a></td>
+                <td><%= item.visits %></td>
+                <td><%= (item.category)?(item.category.label):('') %></td>
+                <td><%= item.provider %></td>
+                <td>
+                    <a href="/admin/items/<%=item.id%>">Show</a> &nbsp;|&nbsp;
+                    <a href="/admin/items/<%=item.id%>" data-method="delete">Delete</a> &nbsp;|&nbsp;
+                    <a href="/admin/items/<%=item.id%>/edit">Edit</a>
+                </td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <%- partial('partials/admin/_pagination', {baseUrl: "/admin/items", pages: pages, current_page: current_page}) %>
+</div>

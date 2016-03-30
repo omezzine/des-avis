@@ -1,0 +1,18 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<div class="dropdown pull-right" style="margin: 0 5px;">
+  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+  Sort By
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <% delete params.sort_by %>
+    <% delete params.order %>
+    <li><a href="?<%=qs.stringify(params)%>">Default</a></li>
+    <% orders.forEach(function(order) { %>
+      <% params.sort_by = order; %>
+      <% params.order = -1; %>
+      <li><a href="?<%=qs.stringify(params)%>"><%= order %> (Desc)</a></li>
+      <% params.order = 1; %>
+      <li><a href="?<%=qs.stringify(params)%>"><%= order %> (Asc)</a></li>
+    <% }) %>
+  </ul>
+</div>

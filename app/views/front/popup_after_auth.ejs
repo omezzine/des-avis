@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Pending...</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+</head>
+<body>
+<script type="text/javascript">
+    if (window.opener) {
+        window.opener.focus();
+        var state = '<%= state %>';
+        window.opener.location.reload(true);    
+        window.close();
+    }
+</script>
+</body>
+</html>

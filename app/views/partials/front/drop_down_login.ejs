@@ -1,0 +1,41 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connexion<span class="caret"></span></a>
+    <ul class="dropdown-menu connexion" id="login-dp">
+      <li>
+        <div class="row">
+          <div class="col-md-12">
+            login via
+            <div class="social-buttons">
+              <a href="javascript:void(0)" data-oauth="/auth/facebook" class="btn btn-inline btn-social btn-facebook">
+                <i class="fa fa-facebook"></i> Facebook
+              </a>
+              <a class="btn btn-inline btn-social btn-google-plus" data-oauth="/auth/google" href="javascript:void(0)">
+                <i class="fa fa-google-plus"></i> Google
+              </a>
+            </div>
+            Ou
+            <form class="form" role="form" method="post" action="/auth/local" data-auth-local id="login-nav">
+              <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+              <div class="form-group">
+                <label class="sr-only" for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email address" required="true">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="true">
+                <div class="help-block text-right"><a href="#"  data-toggle="modal" data-target="#forgot_password">Mot de passe oublié ?</a></div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+              </div>
+            </form>
+          </div>
+          <div class="bottom text-center">
+            Nouveau Membre ? <a href="#"  data-toggle="modal" data-target="#signup"><b>Créer un compte</b></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>

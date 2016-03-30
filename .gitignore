@@ -1,0 +1,6 @@
+# Build and Release Folders
+start_services.bat
+node_modules/*
+# Other files and folders
+logs/*
+npm-debug.log

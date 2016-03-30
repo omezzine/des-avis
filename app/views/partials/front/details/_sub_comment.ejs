@@ -1,0 +1,25 @@
+<li class="sub-comment" id="<%= sub_comment.id %>">
+    <div class="comment-body">
+        <div class="clearfix">
+            <div class="comment-heading no-padding col-md-8">
+                <h4 class="comment-user-name"><%=(sub_comment.owner)?(sub_comment.owner.display_name):('anonymous')%></h4>
+                <h5 class="time"><%= moment(sub_comment.created_at).fromNow() %></h5>
+            </div>
+            <% if (current_user) { %>
+            <div class="col-md-4">
+                <% if (!(~sub_comment.spams.indexOf(String(current_user.id)))) { %>
+                <a data-signal-comment="<%=sub_comment.id%>" class="signal pull-right" href="javascript:void(0)"  title="Signaler">
+                    <i class="fa fa-exclamation-triangle"></i> Signaler
+                </a>
+                <% } %>
+                <% if ((current_user.id == sub_comment.owner._id)) { %>
+                <a data-delete-comment="<%=sub_comment.id%>" class="delete pull-right" href="javascript:void(0)" data-toggle="tooltip">
+                    <i class="fa fa-trash"></i> Supprimer
+                </a>
+                <% } %>
+            </div>
+            <% } %>
+        </div>
+        <p><%=sub_comment.text%></p>
+    </div>
+</li>

@@ -1,0 +1,11 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<ul class="pagination">
+    <li><a href="?page=1">&laquo;</a></li>
+    <% for(var i = 1; i <= pages; i++) { %>
+    	<% params.page = i; %> 
+    	<li class="<%=(current_page == i)?('active'):('') %>">
+    		<a href="?<%=qs.stringify(params)%>"><%=i%></a>
+    	</li>
+    <% } %>
+    <li><a href="?page=<%=pages%>">&raquo;</a></li>
+</ul>

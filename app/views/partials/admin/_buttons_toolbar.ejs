@@ -1,0 +1,15 @@
+
+<div class="btn-toolbar action-buttons">
+  <div class="btn-group pull-left">
+  	  <% if(edit_url) { %>
+       <a title="edit" href="<%=edit_url%>" class="btn btn-inverse active blue"><i class="fa fa-pencil"></i></a>
+      <% } %>
+      <% if (delete_url) { %>
+       <a title="delete" data-method="delete" href="<%=delete_url%>" class="btn btn-inverse active red"><i class="fa fa-trash-o"></i></a>
+      <% }%>
+      <% if (show_url) { %>
+      <a title="show" href="<%=show_url%>" class="btn btn-inverse active green"><i class="fa fa-eye"></i></a>
+      <% }%>
+  </div>
+</div>
+

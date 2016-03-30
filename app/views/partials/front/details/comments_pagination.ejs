@@ -1,0 +1,11 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<ul class="pagination comments-pages">
+    <li><a href="?comment_page=1">&laquo;</a></li>
+    <% for(var i = 1; i <= pages; i++) { %>
+    	<% params.comment_page = i; %> 
+    	<li class="<%=(current_page == i)?('active'):('') %>">
+    		<a href="?<%=qs.stringify(params)%>"><%=i%></a>
+    	</li>
+    <% } %>
+    <li><a href="?comment_page=<%=pages%>">&raquo;</a></li>
+</ul>

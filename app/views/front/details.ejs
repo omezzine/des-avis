@@ -1,0 +1,89 @@
+<% layout('/layouts/two_columns') -%>
+
+<% block('right-bar').append(partial('partials/front/details/related_items', {items: related_items, category: item.category})) %>
+
+<div class="row product">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well box-shadow">
+                <div class="row clearfix">
+                    <div class="col-md-12 main-info">
+                        <span class="pull-right visits">
+                            <i class="fa fa-users"></i> <%= item.visits %> Vues
+                        </span>
+                        <span class="pull-right comments">
+                            <i class="fa fa-comments"></i> <%= comments.length %> Commentaires
+                        </span>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-4">
+                        <%- partial('partials/front/details/carousel.ejs', {item: item}) %>
+                    </div>
+                    <div class="col-md-8">
+                        <span class="pull-left status approuved">
+                            <i class="fa fa-check-circle"></i> Verifié
+                        </span>
+                        <h1 class="title"><%= item.label %></h1>
+                        <div class="product-amazon">
+                            <a title="Meilleur prix sur Amazon" href="<%= item.amazon.items[0].DetailPageURL[0]%>" target="_blank">
+                                <i class="fa fa-amazon"></i>Meilleur prix sur Amazon
+                            </a>
+                        </div>
+                        <div class="product-rating">
+                            <input data-rating-display type="number" class="kv-fa rating-loading" data-rtl="false" value="<%= item.rate %>">
+                            <span class="avg">(<%= item.rate %> / 5)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 product-footer">
+                        <div class="no-padding col-md-4 social-network-share pull-right">
+                            <%- partial('partials/front/details/social_network_share.ejs') %>
+                        </div>
+                        <div class="no-padding col-md-8 product-own-rating pull-right">
+                            <form role="form" action="/ajax/items/rate" method="POST" data-rate-form>
+                                <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+                                <input type="hidden" name="item_id" value="<%=item._id%>" />
+                                <input name="rate" data-rating type="number" class="kv-fa rating-loading" data-rtl="false">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row new-comment">
+        <div class="col-md-12">
+            <div class="well box-shadow">
+                <form role="form" action="/ajax/comments/add" method="POST" data-comment-form>
+                    <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+                    <input type="hidden" name="item_id" value="<%=item._id%>" />
+                    <textarea class="form-control" placeholder="Votre commentaire" name="text" minlength="5" maxlength="250" required="true"></textarea>
+                    <ul class="list-inline post-actions">
+                        <li class="pull-left anonymous">
+                            <label class="checkbox-inline"><input type="checkbox" value="true" name="anonymous">Rester anonyme</label>
+                        </li>
+                        <li class="pull-right"><button type="submit" class="btn btn-info btn-xs btn-fill pull-right">Poster</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row comments">
+        <div class="col-md-12">
+            <div class="well box-shadow">
+                <h2>Commentaires <span data-comments-count="<%=comments.length %>">(<%=comments.length %>)</span></h2>
+                <% if (comments.length > 0) { %>
+                <% comments.forEach(function(comment){ %>
+                <%- partial('partials/front/details/comment', {comment: comment}) %>
+                <%})%>
+                <% } else { %>
+                <h5 data-no-comment>Aucun commentaire, soyez le premier :)</h5>
+                <% } %>
+                <%- partial('partials/front/details/comments_pagination', {pages: comment_pages, current_page: comment_current_page}) %>
+            </div>
+        </div>
+    </div>
+</div>

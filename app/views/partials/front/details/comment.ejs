@@ -1,0 +1,50 @@
+<div class="comment" id="<%=comment.id%>">
+    <div class="post-description">
+        <div class="clearfix">
+            <div class="col-md-8 no-padding">
+               <% if (!comment.anonymous) { %>
+                <h4 class="comment-user-name"><a href="javascript:void(0)"><%= comment.owner.display_name %></a></h4>
+                <% } else {%>
+                    <h4 class="comment-user-name"><a href="javascript:void(0)">Anonymous</a></h4>
+                 <%}%>
+                <h5 class="time"><%= moment(comment.created_at).fromNow() %></h5>
+            </div>
+            <% if (current_user) { %>
+                <div class="col-md-4">
+                    <% if (!(~comment.spams.indexOf(String(current_user.id)))) { %>
+                        <a data-signal-comment="<%=comment.id%>" class="signal pull-right" href="javascript:void(0)"  title="Signaler">
+                            <i class="fa fa-exclamation-triangle"></i> Signaler
+                        </a>
+                    <% } %>
+                    <% if ((current_user.id == comment.owner._id)) { %>
+                    <a data-delete-comment="<%=comment.id%>" class="delete pull-right" href="javascript:void(0)" data-toggle="tooltip">
+                        <i class="fa fa-trash"></i> Supprimer
+                    </a>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+        <p><%= comment.text %></p>
+        <div class="stats">
+            <a data-like="<%=comment.id%>" href="javascript:void(0)" class="btn like-btn stat-btn
+                <%= (current_user && comment.votes && ~comment.votes.indexOf(''+current_user.id))?('active'):('')%>"> <i class="fa fa-thumbs-up icon"></i> <span class="likes"><%= comment.votes_count %></span>
+            </a>
+            <a data-answer href="javascript:void(0)" class="btn answer-btn stat-btn"> <i class="fa fa-share icon"></i>
+            Répondre (<%= comment.sub_comments.length %>) </a>
+        </div>
+    </div>
+    <div class="sub-comments col-md-12" style="display: none;">
+        <form role="form" action="/ajax/comments/addSubComment" method="POST" data-sub-comment-form>
+            <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+            <input type="hidden" name="parent_comment" value="<%=comment.id%>" />
+            <div class="input-group col-md-12">
+                <textarea class="form-control" placeholder="Répondre..." name="text" minlength="5" maxlength="250" required="true"></textarea>
+            </div>
+        </form>
+        <ul class="sub-comments-list">
+            <% comment.sub_comments.forEach(function(sub_comment) { %>
+                <%- partial('partials/front/details/_sub_comment', {sub_comment: sub_comment}) %>
+            <% }) %>
+            </ul>
+        </div>
+    </div>

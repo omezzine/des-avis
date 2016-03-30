@@ -1,0 +1,21 @@
+<% layout('/layouts/admin') -%>
+<div class="row">
+	<div class="form-group">
+		<label>Label</label>
+		<p class="form-control-static"><%= category.label %></p>
+	</div>
+	<div class="form-group">
+		<label>Amazon Used Label</label>
+		<p class="form-control-static"><%= category.amazon_label || '' %></p>
+	</div>
+	<div class="form-group">
+		<label>Sub Categories</label>
+		<p class="form-control-static">
+			<ul>
+				<% category.childrens.forEach(function(cat){ %>
+				<li><%=cat.label%></li>
+				<% }) %>
+			</ul>
+		</p>
+	</div>
+</div>

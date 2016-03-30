@@ -1,0 +1,16 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<div class="dropdown pull-right" style="margin: 0 5px;">
+  <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+  <% var current_category = _.find(categories, {_id: params.category}) %>
+  <% current_category = (current_category)?(current_category.label):("Select Catgeory") %>
+  <%= current_category %>
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <% delete params.category%>
+    <li><a href="?<%=qs.stringify(params)%>">All</a></li>
+    <% categories.forEach(function(category) { %>
+      <% params.category = category._id; %>
+      <li><a href="?<%=qs.stringify(params)%>"><%= category.label %></a></li>
+    <% }) %>
+  </ul>
+</div>

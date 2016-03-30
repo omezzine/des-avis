@@ -1,0 +1,50 @@
+
+.categories li {
+	display: block;
+	font-size: 15px;
+	border-radius: 5px;
+}
+.categories > li {
+	border-bottom: 3px solid #fff;
+}
+.categories > li:last-child {
+	border-bottom: none;
+}
+.categories .header {
+	display: block;
+	background-color: #7f8c8d;
+	color: #fff;
+	padding: 10px;
+}
+.categories .sub-categories {	
+	background: #34495e;
+}
+.categories .sub-categories li {
+	border-bottom: 1px solid #fff;
+	padding: 10px;
+	padding-left: 25px;
+	color: #fff;
+}
+.categories .sub-categories li:last-child {
+	border-bottom: none;
+}
+
+.categories .actions a{
+	color: #fff !important;
+	font-size: 12px;
+}
+
+.btn-toolbar.action-buttons .red {
+	background: #c0392b;
+	color: #fff;
+}
+
+.btn-toolbar.action-buttons .blue {
+	background: #2980b9;
+	color: #fff;
+}
+
+.btn-toolbar.action-buttons .green {
+	background: #2ecc71;
+	color: #fff;
+}

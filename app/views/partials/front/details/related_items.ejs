@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-12 no-padding">
+		<div class="block well box-shadow">
+			<h1 class="title">Vous pourriez aimer</h1>
+			<div class="content">
+				<ul class="items-list">
+					<% items.forEach(function(item) {%>
+					<li>
+						<a href="<%= LinkGenerator.GenerateItemUrl(category.slug, item.slug)%>" title="<%= item.label %>" target="_blank">
+							<div class="col-md-4 thumbnail">
+								<img src="<%=item.thumbnail%>" alt="<%=item.label%>" />
+							</div>
+							<div class="col-md-8">
+								<span class="item-title"><%= item.label %></span>
+								<div class="product-rating sm">
+									<input data-rating-display type="number" class="kv-fa rating-loading" data-rtl="false" value="<%= item.rate %>">
+									<span class="avg">(<%= item.rate %> / 5)</span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<% }) %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
