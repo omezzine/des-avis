@@ -20,7 +20,6 @@ class SettingsHelper {
 						user.local.password = data.new_password;
 						user.save(function(err, user) {
 							if (err) {
-								console.log(err);
 								reject(err);
 							} else {
 								resolve();

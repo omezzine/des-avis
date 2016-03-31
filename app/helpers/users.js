@@ -40,30 +40,34 @@ class UsersHelper {
     }
 
     static createAdmin(data) {
-        let user = new User({
-            role: 'Admin',
-            provider: 'local',
-            local: {
-                email: data.email,
-                password: data.password
-            }
-        });
-
         let promise = new Promise(function(resolve, reject) {
-            user.save(function(err) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve()
-                }
-            })
-        })
+            if (data.password !== data.confirm_password) {
+                reject('Password Does not match');
+            } else {
+                let user = new User({
+                    role: 'Admin',
+                    provider: 'local',
+                    sex: data.sex,
+                    birthday: data.birthday,
+                    local: {
+                        email: data.email,
+                        password: data.password
+                    }
+                });
 
+                user.save(function(err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve()
+                    }
+                })
+            }
+        })
         return promise;
     }
 
     static CreateUser(data) {
-        console.log(data);
         let promise = new Promise(function(resolve, reject) {
             if (data.password !== data.confirm_password) {
                 reject('Password Does not match');

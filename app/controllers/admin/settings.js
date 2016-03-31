@@ -16,11 +16,11 @@ class SettingsController {
     }
 
     updateProfil(req, res) {
-        SettingsHelper.updateAdminPassword(req.user, req.body).then(function() {
+        SettingsHelper.updateAdminPassword(req.user._id, req.body).then(function() {
             req.flash('info', 'Password has been successfully updated');
             res.redirect('/admin/settings');
         }, function(err) {
-            req.flash('error', err);
+            req.flash('error', Utils.FormatErrors(err));
             res.redirect('/admin/settings');
         })
     }
@@ -30,7 +30,7 @@ class SettingsController {
             req.flash('info', 'New Admin has been successfully created');
             res.redirect('/admin/settings');
         }, function(err) {
-            req.flash('error', Utils.formatErrors(err.errors));
+            req.flash('error', Utils.FormatErrors(err));
             res.redirect('/admin/settings');
         });
     }
