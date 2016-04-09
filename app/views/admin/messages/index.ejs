@@ -1,0 +1,43 @@
+<% layout('/layouts/admin') -%>
+<div class="row filters">
+    <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
+    <%- partial('partials/admin/_checkbox_filter', {name: "only_replied", title: "only replied", checked_value: true, not_checked_value: false})%>
+</div>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Replied</th>
+                <th>Object</th>
+                <th>From</th>
+                <th>Message</th>
+                <th>Sent At</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% messages.forEach(function(message){ %>
+            <tr>
+                <td class="text-center"><%-(message.replied)?("<i class='fa fa-check'></i>"):("")%></td>
+                <td><%=message.object%></td>
+                <td>
+                    <%= message.from %>
+                </td>
+                <td>
+                    <%= message.text %>
+                </td>
+                <td><%= moment(message.sent_at).format('DD/MM/YYYY') %></td>
+                <td class="actions">
+                    <%if(!message.replied) {%>
+                    <a title="reply" href="/admin/messages/<%=message.id%>"><i class="fa fa-reply"></i></a> &nbsp;|&nbsp;
+                    <% } %>
+                    <a title="delete" href="/admin/messages/<%=message.id%>" data-method="delete"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <%- partial('partials/admin/_pagination', {baseUrl: "/admin/items", pages: pages, current_page: current_page}) %>
+</div>

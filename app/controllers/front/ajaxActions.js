@@ -3,6 +3,8 @@
 const AjaxActionsHelper = rootRequire('app/helpers/ajaxActions');
 const CommentsHelper = rootRequire('app/helpers/comments');
 const ItemsHelper = rootRequire('app/helpers/items');
+const MessagesHelper = rootRequire('app/helpers/messages');
+const Utils = rootRequire('/libs/utils');
 
 class AjaxActionsController {
 
@@ -64,6 +66,24 @@ class AjaxActionsController {
         });      
     }
 
+    popuprate(req, res) {
+        let itemRatePromise  = ItemsHelper.Rate(req.body.item_id, req.user, req.body.rate);
+        let itemCommentPromise = CommentsHelper.AddComment(req.user, req.body.anonymous, req.body.comment, req.body.item_id);
+        Promise.all([itemRatePromise, itemCommentPromise]).then(function(data) {
+            res.status(200).json({message: "Votre avis nous intéresse! Merci"});
+        }, function(err) {
+            console.log(err);
+            res.status(400).json(Utils.FormatErrors(err));
+        })
+    }
+
+    contact(req, res) {
+        MessagesHelper.SaveMessage(req.body).then(function(comment) {
+            res.status(200).json({message: "Votre Message a été envoyé"});
+        }, function(err) {
+            res.status(400).json(Utils.FormatErrors(err));
+        }); 
+    }
 
 }
 

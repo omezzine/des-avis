@@ -66,9 +66,12 @@ var ItemSchema = new Schema({
         }]
     },
     provider: {
-        enum: ['Amazon', 'Local'],
+        enum: ['Local', 'Amazon'],
         type: String,
         default: 'Local'
+    },
+    spams: {
+        type: Array
     },
     created_at: {
         type: Date,
@@ -88,15 +91,17 @@ ItemSchema.plugin(mongoosePaginate);
 
 // Run Every Time Before Save
 ItemSchema.pre('save', function(next) {
-
+    this.wasNew = this.isNew; // check if new
     let item = this;
     // Generate Slug
     item.slug = getSlug(item.label, {
         lang: 'fr'
     });
 
-    // Set UpdateAt To Now
-    item.updated_at = Date.now();
+    if (this.isNew) {
+        this.created_at = Date.now();
+    }
+    this.updated_at = Date.now();
     // Next
     next();
 });

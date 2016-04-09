@@ -1,0 +1,71 @@
+<% if (current_user) { %>
+<div class="modal fade" id="popuprate" tabindex="-1" role="dialog" aria-labelledby="myavisModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="form" role="form" method="post" action="/ajax/items/popuprate" data-popuprate-form>
+      <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+      <input type="hidden" name="item_id" value="<%=item._id%>" />
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myavisModalLabel">Votre avis nous intéresse !</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-5">
+                <div class="product-amazon text-center">
+                  <a title="Meilleur prix sur Amazon" href="<%= item.amazon.items[0].DetailPageURL[0]%>" target="_blank">
+                    <i class="fa fa-amazon"></i>Meilleur prix sur Amazon
+                  </a>
+                </div>
+                <div class="img-container">
+                  <img src="<%= item.amazon.items[0].ImageUrl%>" alt="<%=item.label%>"/>
+                </div>
+              </div>
+              <div class="col-md-7 new-comment">
+                <div class="rate">
+                  <input name="rate" data-rating-popup type="text" class="kv-fa rating-loading" data-rtl="false">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="comment" placeholder="Votre avis" require="true"></textarea>
+                  <ul class="list-inline post-actions">
+                    <li class="pull-left anonymous">
+                      <label class="checkbox-inline"><input type="checkbox" value="true" name="anonymous">Rester anonyme</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">J'ai aucun avis :(</button>
+            <button type="submit" class="btn btn-primary">Je note</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+$("[data-rating-popup]").rating({
+min: 0,
+max: 5,
+step: 0.5,
+size: 'xs',
+defaultCaption: 'No user ',
+starCaptions: function(rating) {
+return rating;
+},
+theme: 'krajee-fa',
+showClear: false,
+clearCaption: 'Donnez une note',
+filledStar: '<i class="fa fa-star gold"></i>',
+emptyStar: '<i class="fa fa-star-o"></i>'
+});
+setTimeout(function() {
+$('#popuprate').modal('show');
+}, 10000);
+})
+</script>
+<% } %>

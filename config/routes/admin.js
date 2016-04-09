@@ -12,6 +12,7 @@ const ItemsController = rootRequire('app/controllers/admin/items');
 const SpamsController = rootRequire('app/controllers/admin/spams');
 const CommentsController = rootRequire('app/controllers/admin/comments');
 const AmazonItemsController = rootRequire('app/controllers/admin/amazonItems');
+const MessagesController = rootRequire('app/controllers/admin/messages');
 
 module.exports = function(app) {
 
@@ -98,13 +99,22 @@ module.exports = function(app) {
 	app.use('/admin/spams', spamsRouter);
 
 
-	// Handle /admin/spams
+	// Handle /admin/amzon
 	let amazonItemsRouter = express.Router();
 	amazonItemsRouter
 		.get('/items', AmazonItemsController.index)
 		.post('/create', AmazonItemsController.create)
 		.post('/delete', AmazonItemsController.delete)
+		.get('/smart', AmazonItemsController.smart)
 	app.use('/admin/amazon', amazonItemsRouter);
 
+	// Handle /admin/messages
+	let messagesRouter = express.Router();
+	messagesRouter
+		.get('/', MessagesController.index)
+		.get('/:id', MessagesController.show)
+		.delete('/:id', MessagesController.delete)
+		.post('/reply', MessagesController.reply)
+	app.use('/admin/messages', messagesRouter);
 	
 }

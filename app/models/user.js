@@ -59,6 +59,7 @@ var UserSchema = new Schema({
 
 // Run Every Time Before Save
 UserSchema.pre('save', function(next) {
+    this.wasNew = this.isNew; // check if new
     let user = this;
     if (user.provider === "local") {
         // Generate Hash Password If New User Or Password Is Modified
@@ -66,7 +67,9 @@ UserSchema.pre('save', function(next) {
             user.local.password = user.generateHash(user.local.password);
         }
     }
-    // Set UpdateAt To Now
+    if (this.isNew) {
+      user.created_at = Date.now();  
+    }
     user.updated_at = Date.now();
     // Next
     next();

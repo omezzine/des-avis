@@ -70,6 +70,10 @@ CommentSchema.pre('save', function(next) {
     this.wasNew = this.isNew; // check if new
     this.votes_count = this.votes.length;
     this.spams_count = this.spams.length;
+    if (this.isNew) {
+      this.created_at = Date.now();  
+    }
+    this.updated_at = Date.now();
     next();
 });
 

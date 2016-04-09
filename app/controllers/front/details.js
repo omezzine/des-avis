@@ -20,7 +20,6 @@ class DetailsController {
             let relatedItemsPromise = ItemsHelper.GetRelatedItems(item);
 
             Promise.all([increasePromise, itemAmzonPromise, commentsPromise, categoriesPromise, relatedItemsPromise]).then(function(values) {
-                console.log(values[4]);
                 res.render('front/details', {
                     title: item.label,
                     item: item,
@@ -29,6 +28,7 @@ class DetailsController {
                     comment_current_page: values[2].page,
                     categories: values[3],
                     related_items: values[4],
+                    user_rate: ItemsHelper.getUserRate(req.user, item.rates),
                     two_columns: true
                 });
             });

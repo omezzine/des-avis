@@ -1,10 +1,9 @@
 User-agent: *
 Disallow: /admin/
+Disallow: /admin*?
 Disallow: /search/
 Disallow: /auth/
 Disallow: /auth*?
-Disallow: /comments/add/
-Disallow: /comments/addSubComment/
-Disallow: /comments/addSubComment/
+Disallow: /ajax*?
 Allow: /
 Sitemap: http://www.des-avis.fr/sitemap.xml

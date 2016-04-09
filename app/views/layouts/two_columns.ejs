@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Avis <%= title || '' %> </title>
         <meta name="token" content="<%= csrf_token %>">
+        <%- block('meta') %>
         <!-- Bootstrap Core CSS -->
         <link href="/frontend/css/bootstrap.min.css" rel="stylesheet">
         <!-- fontawesome -->
@@ -49,6 +50,7 @@
         <%- partial ('partials/front/popup/signup') %>
         <%- partial ('partials/front/popup/warning') %>
         <%- partial ('partials/front/popup/success') %>
+        <%- partial ('partials/front/popup/contact') %>
         <script src="/frontend/javascripts/libs/datepicker.min.js"></script>
         <script src="/frontend/javascripts/libs/star-rating.min.js"></script>
         <script src="/frontend/javascripts/libs/rssb-buttons.js"></script>

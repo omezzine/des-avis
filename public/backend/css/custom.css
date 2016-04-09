@@ -48,3 +48,32 @@
 	background: #2ecc71;
 	color: #fff;
 }
+.filters {
+	margin-bottom: 10px;
+    padding: 10px;
+    background: #2e4053;
+    color: #fff;
+    border-radius: 5px;
+}
+.navbar-default .navbar-brand {
+	padding: 5px 5px 5px 20px;
+}
+.navbar-brand>img {
+	height: 43px;
+}
+.actions {
+	min-width: 80px;
+	text-align: right;
+}
+.actions a{
+	display: inline-block;
+}
+.actions .fa-trash {
+	color: red;
+}
+.actions .fa-pencil-square-o {
+	color: green;
+}
+.actions .fa-reply {
+	color: blue;
+}

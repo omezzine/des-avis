@@ -24,6 +24,11 @@ var AmazonItemSchema = new Schema({
         ref: 'Category'
     },
     thumbnail: String,
+    search_provider: {
+        enum: ['Auto', 'Smart'],
+        type: String,
+        default: 'Auto'
+    },
     checked: {
         type: String,
         default: false
@@ -34,7 +39,14 @@ var AmazonItemSchema = new Schema({
     }
 });
 
-
+AmazonItemSchema.pre('save', function(next) {
+    this.wasNew = this.isNew; // check if new
+    if (this.isNew) {
+      this.created_at = Date.now();  
+    }
+    this.updated_at = Date.now();
+    next();
+});
 
 // Apply the pagination plugin
 AmazonItemSchema.plugin(mongoosePaginate);

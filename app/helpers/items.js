@@ -67,10 +67,18 @@ class ItemsHelper {
                 if (err) {
                     reject(err);
                 } else {
-                    item.rates.push({
-                        user: user._id,
-                        value: rating
-                    });
+                    if (item.rates.filter((rate) => rate.user.equals(user._id)).length) {
+                        item.rates.forEach(function(rate) {
+                            if (rate.user.equals(user._id)) {
+                                rate.value = rating;
+                            }
+                        });
+                    } else {
+                        item.rates.push({
+                            user: user._id,
+                            value: rating
+                        });
+                    }
                     item.rate = ItemsHelper.CalculateRateAvg(item.rates);
                     item.save(function(err, item) {
                         if (err) {
@@ -359,6 +367,58 @@ class ItemsHelper {
     static GetThumbnailFromAmazon(items) {
         if (!items || items.length === 0) return undefined;
         return items[0].SmallImage[0].URL[0] || items[0].MediumImage[0].URL[0] || items[0].LargeImage[0].URL[0];
+    }
+
+    static LoadTopItems() {
+        let promise = new Promise(function(resolve, reject) {
+            Item
+                .find({})
+                .sort('visits', -1)
+                .populate('category')
+                .limit(30)
+                .select('category label')
+                .exec(function(err, items) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(items);
+                    }
+                })
+        })
+
+        return promise;
+    }
+
+    static LoadItemsByQuery(query) {
+        let promise = new Promise(function(resolve, reject) {
+            Item
+                .find(query, 'category label', {
+                    sort: {
+                        visits: -1
+                    },
+                    limit: 5,
+                    populate: 'category'
+                }, function(err, items) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(items);
+                    }
+                })
+        })
+
+        return promise;
+    }
+
+    static getUserRate(user, rates) {
+        if ((!user) || (!rates.length)) return undefined;
+        let rate = rates.filter((rate) => rate.user.equals(user._id));
+        rate = rate[0];
+        if (rate && rate.value) {
+            return rate.value;
+        } else {
+            return undefined;
+        }
     }
 
 }

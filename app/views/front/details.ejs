@@ -2,10 +2,11 @@
 
 <% block('right-bar').append(partial('partials/front/details/related_items', {items: related_items, category: item.category})) %>
 
+<% block('meta').append(partial('partials/_meta')) %>
 <div class="row product">
     <div class="row">
         <div class="col-md-12">
-            <div class="well box-shadow">
+            <div class="well box-shadow item-box">
                 <div class="row clearfix">
                     <div class="col-md-12 main-info">
                         <span class="pull-right visits">
@@ -17,10 +18,10 @@
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <%- partial('partials/front/details/carousel.ejs', {item: item}) %>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-sm-6">
                         <span class="pull-left status approuved">
                             <i class="fa fa-check-circle"></i> Verifié
                         </span>
@@ -41,11 +42,11 @@
                         <div class="no-padding col-md-4 social-network-share pull-right">
                             <%- partial('partials/front/details/social_network_share.ejs') %>
                         </div>
-                        <div class="no-padding col-md-8 product-own-rating pull-right">
+                        <div class="no-padding col-md-8 product-own-rating pull-left">
                             <form role="form" action="/ajax/items/rate" method="POST" data-rate-form>
                                 <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
                                 <input type="hidden" name="item_id" value="<%=item._id%>" />
-                                <input name="rate" data-rating type="number" class="kv-fa rating-loading" data-rtl="false">
+                                <input name="rate" data-rating type="number" class="kv-fa rating-loading" data-rtl="false" value="<%=user_rate%>">
                             </form>
                         </div>
                     </div>
@@ -87,3 +88,4 @@
         </div>
     </div>
 </div>
+<%- partial('partials/front/popup/rate') %>

@@ -21,12 +21,12 @@ $(document).ready(function() {
         max: 5,
         step: 0.5,
         size: 'xs',
-        defaultCaption: 'No user ',
         starCaptions: function(rating) {
             return rating;
         },
         theme: 'krajee-fa',
         showClear: false,
+        clearCaption: 'Donnez une note',
         filledStar: '<i class="fa fa-star gold"></i>',
         emptyStar: '<i class="fa fa-star-o"></i>'
     });
@@ -166,6 +166,24 @@ $(document).ready(function() {
         });
     });
 
+    // contact submit form
+    $('[data-contact-form]').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            data = $this.serialize();
+        $.ajax({
+            url: $this.attr('action'),
+            type: $this.attr('method'),
+            data: data,
+            success: function(data) {
+                $('#contact').modal('hide');
+                showSuccessPopup(data.message);
+            },
+            error: function() {;
+            }
+        });
+    });
+
     // Facebook / Google oauth
     $('[data-oauth]').click(function() {
         var $self = $(this),
@@ -217,6 +235,22 @@ $(document).ready(function() {
             data: $this.serialize(),
             success: function(data) {
                 $('#signup').modal('hide');
+                showSuccessPopup(data.message);
+            }
+        });
+    });
+
+    // popup rate
+    $('[data-popuprate-form]').on('submit', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        $.ajax({
+            url: $this.attr('action'),
+            type: $this.attr('method'),
+            data: $this.serialize(),
+            success: function(data) {
+                $('#popuprate').modal('hide');
+                $('input[data-rating]').rating('update', $this.find('input[data-rating-popup]').val());
                 showSuccessPopup(data.message);
             }
         });

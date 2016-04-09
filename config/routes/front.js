@@ -7,7 +7,7 @@ const HomeController = rootRequire('app/controllers/front/home');
 const AuthController = rootRequire('app/controllers/front/auth');
 const AjaxActionsController = rootRequire('app/controllers/front/ajaxActions');
 const DetailsController = rootRequire('app/controllers/front/details');
-
+const AntiSpam = rootRequire('config/middlewares/antiSpam');
 const passport = require('passport');
 
 module.exports = function(app) {
@@ -48,12 +48,18 @@ module.exports = function(app) {
         .post('/like', AjaxActionsController.like)
         .post('/signal', AjaxActionsController.signalSpam)
         .post('/delete', AjaxActionsController.deleteComment)
-        .post('/addSubComment', AjaxActionsController.addSubComment);
-    app.use('/ajax/comments', authorization.requireLogin(), commentsRouter);
+        .post('/addSubComment', AjaxActionsController.addSubComment)
+    app.use('/ajax/comments', AntiSpam.userBruteforce, authorization.requireLogin(), commentsRouter);
+
+    // contact
+    let contactRouter = express.Router();
+    contactRouter.post('/', AjaxActionsController.contact);
+    app.use('/ajax/contact', AntiSpam.contactBruteforce, contactRouter);
 
     // items
     let itemsRouter = express.Router();
     itemsRouter
         .post('/rate', AjaxActionsController.itemRate)
+        .post('/popuprate', AjaxActionsController.popuprate);
     app.use('/ajax/items', authorization.requireLogin(), itemsRouter);
 }

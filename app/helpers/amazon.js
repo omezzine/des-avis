@@ -13,14 +13,17 @@ const opHelper = new OperationHelper({
 });
 const async = require('async');
 const CategoriesHelper = rootRequire('app/helpers/categories');
+const Utils = rootRequire('libs/utils');
+const ItemsHelper = rootRequire('app/helpers/items');
 
 class AmazonHelper {
 
-    static FetchItemsByCategory(category) {
+    static FetchItemsByCategoryAndKeywords(category, keywords) {
+        keywords = keywords || '*';
         let promise = new Promise(function(resolve, reject) {
             opHelper.execute('ItemSearch', {
                 'SearchIndex': category.amazon_label,
-                "Keywords": "*",
+                "Keywords": keywords,
                 'ResponseGroup': 'Images,ItemAttributes'
             }, function(err, results) { // you can add a third parameter for the raw xml response, "results" here are currently parsed using xml2js
                 if (err) {
@@ -63,7 +66,7 @@ class AmazonHelper {
                     if (!cat.amazon_label) {
                         callback();
                     } else {
-                        AmazonHelper.FetchItemsByCategory(cat).then(function(items) {
+                        AmazonHelper.FetchItemsByCategoryAndKeywords(cat).then(function(items) {
                             AmazonItem.create(items, function(err, items) {
                                 callback();
                             });
@@ -81,10 +84,8 @@ class AmazonHelper {
     }
 
 
-    static GetFetchedItem(query, page, limit, category) {
-        if (category) {
-            query.category = category;
-        }
+    static GetFetchedItem(query, page, limit) {
+        query = Utils.DeleteNullPropertiesFromObject(query, true);
         let promise = new Promise(function(resolve, reject) {
             AmazonItem.paginate(query, {
                 populate: 'category',
@@ -119,23 +120,28 @@ class AmazonHelper {
         return promise;
     }
 
-    static UpdateAmazonItems(items) {
+    static UpdateAmazonItems(items, isSmart) {
         let promise = new Promise(function(resolve, reject) {
-            let ids = items.map((item) => item.id);
-            AmazonItem.update({
-                _id: {
-                    $in: ids
-                }
-            }, {
-                checked: true
-            }, {
-                multi: true
-            }, function(err, items) {
-                if (err) {
-                    console.log(err);
-                }
-                resolve(items);
-            });
+            if (isSmart) {
+                resolve([]);
+            } else {
+                let ids = items.map((item) => item.id);
+                AmazonItem.update({
+                    _id: {
+                        $in: ids
+                    }
+                }, {
+                    checked: true
+                }, {
+                    multi: true
+                }, function(err, items) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    resolve(items);
+                });
+            }
+
         });
         return promise;
     }
@@ -155,6 +161,41 @@ class AmazonHelper {
                 }
             });
         });
+        return promise;
+    }
+
+    static SmartSearch(query) {
+        query = Utils.DeleteNullPropertiesFromObject(query, true);
+        let result = [];
+        let promise = new Promise(function(resolve, reject) {
+            ItemsHelper.LoadItemsByQuery(query).then(function(data) {
+                async.forEach(data, function(item, callback) {
+                    if (!item.category.amazon_label) {
+                        callback();
+                    } else {
+                        AmazonHelper.FetchItemsByCategoryAndKeywords(item.category, item.label).then(function(items) {
+                            items = items.map(function(_item) {
+                                return {
+                                    category: item.category,
+                                    label: _item.label,
+                                    thumbnail: _item.thumbnail
+                                }
+                            });
+                            result = result.concat(items);
+                            callback();
+                        });
+                    }
+                }, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    resolve(result);
+                })
+            }, function(err) {
+                reject(err);
+            })
+        })
+
         return promise;
     }
 

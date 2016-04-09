@@ -6,6 +6,7 @@ User.findOne({
 }, function(err, user) {
     if (!err && !user) {
         var user = new User({
+            sex: 'M',
             local: {
                 email: "mohamed.omezzine@gmail.com",
                 password: 123456

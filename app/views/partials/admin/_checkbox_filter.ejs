@@ -1,0 +1,14 @@
+
+<% var params = qs.parse(url.parse(current_url).query) %>
+<% var current_value = params[name] || not_checked_value%>
+<% var next_value = (current_value == String(checked_value))?(not_checked_value):(checked_value) %>
+<% params[name] = next_value %>
+<div class="pull-right" style="width: 130px;margin-top: 7px;">
+<div class="form-inline">
+	<label><%=title%>:</label>
+	<div class="input-group">
+		<input onclick="location.href = '?<%=qs.stringify(params)%>'" type="checkbox" value="true" name="<%=name%>" <%=(current_value == String(checked_value))?("checked"):("")%> >
+	</div>
+</div>
+</div>
+

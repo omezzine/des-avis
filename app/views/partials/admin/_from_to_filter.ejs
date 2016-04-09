@@ -1,0 +1,27 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<div class="pull-right" style="margin-right: 15px;">
+	<form action="<%=current_url%>" method="GET" id="from_to">
+		<div class="form-inline">
+			<label><%=title%>:</label>
+			<div class="input-group">
+				<input type="text" size="8" class="form-control datepicker" placeholder="from" name="from" data-date-format="mm-dd-yyyy" value="<%=params.from || ''%>"/>
+				<span class="input-group-addon">
+					<i class="fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group">
+				<input type="text" size="8" class="form-control datepicker" placeholder="to" data-date-format="mm-dd-yyyy" name="to" value="<%=params.to || ''%>"/>
+				<span class="input-group-addon" onclick="$(this).prev().">
+					<i class="fa fa-calendar"></i>
+				</span>
+			</div>
+		</div>
+	</form>
+	<script>
+	$(document).ready(function() {
+		$('.datepicker').datepicker({clearBtn: true}).on('changeDate', function(e) {
+			$('#from_to').submit();
+	});
+	})
+	</script>
+</div>

@@ -101,10 +101,15 @@ class CategoriesController {
             if (err) {
                 req.flash('error', Utils.FormatErrors(err));
             } else {
-                // Remove children categories
-                /* Category.remove({
+                Category.update({
                     parent: req.params.id
-                }, function(err, categories) {}); */
+                }, {
+                    parent: undefined
+                }, {
+                    multi: true
+                }, function(err, categories) {
+
+                });
                 CategoriesHelper.RemoveFromCache().then(function() {
                     req.flash('info', category.label + ' has been successfully deleted');
                 })

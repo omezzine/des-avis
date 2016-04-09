@@ -1,0 +1,22 @@
+<% layout('/layouts/admin') -%>
+
+<div class="row">
+    <form role="form" action="/admin/messages/reply" method="POST">
+        <%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+        <input type="hidden" value="<%=message._id%>" name="id"/>
+        <div class="form-group">
+            <label>from:</label>
+            <p><%=message.from%></p>
+        </div>
+        <div class="form-group">
+            <label>text:</label>
+            <p><%=message.text%></p>
+        </div>
+        <div class="form-group">
+            <label>Reply: </label>
+            <textarea class="form-control" name="reply_text" required="true"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Reply</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+    </form>
+</div>
