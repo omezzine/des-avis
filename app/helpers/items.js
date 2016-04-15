@@ -15,6 +15,7 @@ const opHelper = new OperationHelper({
 const Redis = rootRequire('config/redis');
 const COUNT_CACHE_TIME = 1 * 60 * 60 * 6; // 6 hours
 const async = require('async');
+const Utils = rootRequire('libs/utils');
 
 class ItemsHelper {
 
@@ -95,11 +96,8 @@ class ItemsHelper {
         return promise;
     }
 
-    static LoadAllItems(page, limit, category) {
-        var query = {};
-        if (category) {
-            query.category = category;
-        }
+    static LoadAllItems(page, limit, query) {
+        query = Utils.DeleteNullPropertiesFromObject(query, true);
         let promise = new Promise(function(resolve, reject) {
             Item.paginate(query, {
                 populate: 'category',
@@ -230,7 +228,7 @@ class ItemsHelper {
 
         let promise = new Promise(function(resolve, reject) {
             Item.findById(id, function(err, item) {
-                if (err) {
+                if (err || !item) {
                     reject(err);
                 } else {
                     resolve(item);
@@ -244,6 +242,8 @@ class ItemsHelper {
         let item = new Item({
             label: params.label,
             category: params.category,
+            approuved: true,
+            provider: 'Local'
         });
 
         let promise = new Promise(function(resolve, reject) {
@@ -261,9 +261,10 @@ class ItemsHelper {
 
     static UpdateItem(newitem) {
         let promise = new Promise(function(resolve, reject) {
-            ItemsHelper.LoadItemById(newitem._id).then(function(item) {
+            ItemsHelper.LoadItemById(newitem.id).then(function(item) {
                 item.label = newitem.label;
                 item.category = newitem.category;
+                item.approuved = newitem.approuved;
                 item.save(function(err, item) {
                     if (err) {
                         reject(err);
@@ -271,7 +272,9 @@ class ItemsHelper {
                         resolve(item);
                     }
                 })
-            })
+            }, function(err) {
+                reject(err);
+            });
         });
         return promise;
     }

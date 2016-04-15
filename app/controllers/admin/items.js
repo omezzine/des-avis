@@ -6,6 +6,7 @@ const Item = mongoose.model('Item');
 const CategoriesHelper = rootRequire('app/helpers/categories');
 const ItemsHelper = rootRequire('app/helpers/items');
 const _ = require('lodash');
+const Utils = rootRequire('libs/utils');
 
 class ItemsController {
 
@@ -14,9 +15,18 @@ class ItemsController {
         // query params
         let page = req.query.page || 1;
         let limit = req.query.limit || 10;
-        let category = req.query.category || undefined;
+        let query = {
+            category: req.query.category || undefined,
+            approuved: (req.query.not_approuved == "true")?(false):(undefined)
+        }
+        if (req.query.query) {
+            query.label = {
+                    $regex: req.query.query,
+                    $options: "i"
+                }
+        }
         // data
-        let itemsPromise = ItemsHelper.LoadAllItems(page, limit, category);
+        let itemsPromise = ItemsHelper.LoadAllItems(page, limit, query);
         let categoriesPromise = CategoriesHelper.LoadAllCategories({parent: { $exists: true }}, {grouped: false});     
         Promise.all([itemsPromise, categoriesPromise]).then(function(data) {
             res.render('admin/items', {
@@ -79,6 +89,9 @@ class ItemsController {
     update(req, res) {
         ItemsHelper.UpdateItem(req.body).then(function(category) {
             req.flash('info', 'Item has been successfully updated');
+            res.redirect('/admin/items');
+        }, function(err) {
+            req.flash('error', Utils.FormatErrors(err));
             res.redirect('/admin/items');
         });
     }

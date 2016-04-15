@@ -106,6 +106,7 @@ module.exports = function(app) {
 		.post('/create', AmazonItemsController.create)
 		.post('/delete', AmazonItemsController.delete)
 		.get('/smart', AmazonItemsController.smart)
+		.get('/runAutoFetch', AmazonItemsController.runAutoFetch)
 	app.use('/admin/amazon', amazonItemsRouter);
 
 	// Handle /admin/messages

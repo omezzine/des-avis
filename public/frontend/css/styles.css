@@ -123,19 +123,43 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-bottom: 30px;
-    padding: 20px;
     border: 1px solid #dedede;
     background: #FFF;
     -moz-box-shadow: 0 0 5px #dedede;
     -webkit-box-shadow: 0 0 5px #dedede;
     box-shadow: 0 0 5px #dedede;
+    padding: 0px;
 }
-
+.tt-menu .tt-suggestion {
+    padding: 5px;
+}
+.tt-menu .tt-suggestion:hover {
+    background: #00adef;
+}
 .tt-menu .tt-suggestion a{
     display: block;
     padding: 5px 0;
     color: #333;
     font-size: 16px;
+    overflow: hidden;
+}
+.tt-menu .tt-suggestion .rate {
+    overflow: hidden;
+}
+.tt-menu .tt-suggestion .rating-container {
+    display: inline-block;
+}
+.tt-menu .tt-suggestion .rating-container.rating-xs {
+    font-size: 18px;
+}
+.tt-menu .tt-suggestion .thumbnail {
+    margin-bottom: 0px;
+}
+.tt-menu .tt-suggestion .thumbnail>img {
+    max-height: 50px;
+}
+.tt-menu .tt-suggestion .category {
+    display: block;
 }
 .tt-menu .tt-suggestion a .category {
     color: #777777;
@@ -347,7 +371,10 @@ body {
     padding: 5px 0;
     margin-top: 10px;
 }
-
+.product-rating .nbr {
+    display: block;
+    font-size: 11px;
+}
 .product-rating i.gold{
     color: #f1c40f;
 }

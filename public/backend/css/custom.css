@@ -77,3 +77,7 @@
 .actions .fa-reply {
 	color: blue;
 }
+
+tbody .thumbnail {
+	margin-bottom: 0px;
+}

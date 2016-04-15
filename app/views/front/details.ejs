@@ -8,7 +8,18 @@
         <div class="col-md-12">
             <div class="well box-shadow item-box">
                 <div class="row clearfix">
-                    <div class="col-md-12 main-info">
+                    <div class="col-md-6">
+                        <% if (item.approuved) { %>
+                        <span class="pull-left status approuved">
+                            <i class="fa fa-check-circle"></i> Verifié
+                        </span>
+                        <% } else { %>
+                            <span class="pull-left status not-approuved">
+                                <i class="fa fa-hourglass-start"></i> Verification en cours
+                            </span>
+                        <% } %>
+                    </div>
+                    <div class="col-md-6 main-info">
                         <span class="pull-right visits">
                             <i class="fa fa-users"></i> <%= item.visits %> Vues
                         </span>
@@ -22,9 +33,6 @@
                         <%- partial('partials/front/details/carousel.ejs', {item: item}) %>
                     </div>
                     <div class="col-md-8 col-sm-6">
-                        <span class="pull-left status approuved">
-                            <i class="fa fa-check-circle"></i> Verifié
-                        </span>
                         <h1 class="title"><%= item.label %></h1>
                         <div class="product-amazon">
                             <a title="Meilleur prix sur Amazon" href="<%= item.amazon.items[0].DetailPageURL[0]%>" target="_blank">
@@ -34,6 +42,7 @@
                         <div class="product-rating">
                             <input data-rating-display type="number" class="kv-fa rating-loading" data-rtl="false" value="<%= item.rate %>">
                             <span class="avg">(<%= item.rate %> / 5)</span>
+                            <span class="nbr">(<%=item.rates.length%> Utilisateurs)</span>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 const Item = mongoose.model('Item');
+const AmazonHelper = rootRequire('app/helpers/amazon');
 
 class AjaxActionsHelper {
 
@@ -14,50 +15,39 @@ class AjaxActionsHelper {
             }).populate('category')
                 .exec(function(err, items) {
                     if (err) {
-                        reject(err);
+                        console.log(err);
+                        reject([]);
                     } else {
-                        resolve(items);
+                        if (items.length) {
+                            resolve(items);
+                        } else {
+                            // No Result Found 
+                            // We Search on Amazon
+                            AjaxActionsHelper.amazonSearch(query).then(function(items) {
+                                resolve(items);
+                            }, function(err) {
+                                console.log(err);
+                                reject([]);
+                            });
+                        }
+
                     }
                 })
         })
         return promise;
     }
 
-    /*static search(query) {
-        const OPTS = {
-            suggest: {
-                "label-suggest": {
-                    "text": "?" + query + "?",
-                    "completion": {
-                        "field": "label",
-                        "fuzzy": {
-                            "fuzziness": 2
-                        }
-                    }
-                }
-            },
-            hydrate: true,
-            size: 1,
-            from: 10
-        };
-        const Q = {
-            "match": {
-                "label": "*" + query + "*"
-            }
-        }
+    static amazonSearch(query) {
+        console.log('looking on amazon...');
         let promise = new Promise(function(resolve, reject) {
-            Item.search(null, OPTS, function(err, items) {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                } else {
-                    console.log(JSON.stringify(items))
-                    resolve(items['suggest']['label-suggest'][0].options);
-                }
-            })
+            AmazonHelper.AmazonQuickSearch(query).then(function(items) {
+                resolve(items);
+            }, function(err) {
+                reject(err);
+            });
         })
         return promise;
-    } */
+    }
 
 
 }

@@ -1,0 +1,18 @@
+<% var params = qs.parse(url.parse(current_url).query) %>
+<div class="pull-right" style="width: 200px;margin: 0 5px;">
+<form method="GET">
+	<% for(var key in params) {%>
+		<%if (key !== "query") {%>
+		<input type="hidden" name="<%=key%>" value="<%=params[key]%>">
+		<%}%>
+	<% } %>
+	<div class="input-group custom-search-form">		
+		<input type="text" class="form-control" placeholder="keywords..." name="query" value="<%=(params.query)?(params.query):("")%>">
+		<span class="input-group-btn">
+			<button class="btn btn-default" type="submit">
+			<i class="fa fa-search"></i>
+			</button>
+		</span>	
+	</div>
+</form>
+</div>

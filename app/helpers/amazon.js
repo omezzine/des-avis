@@ -109,7 +109,8 @@ class AmazonHelper {
                 label: o.label,
                 category: o.category,
                 thumbnail: o.thumbnail,
-                provider: 'Amazon'
+                provider: 'Amazon',
+                approuved: true
             }
         });
         let promise = new Promise(function(resolve, reject) {
@@ -196,6 +197,39 @@ class AmazonHelper {
             })
         })
 
+        return promise;
+    }
+
+
+    static AmazonQuickSearch(key) {
+        let items = [];
+        let promise = new Promise(function(resolve, reject) {
+            opHelper.execute('ItemSearch', {
+                'SearchIndex': 'All',
+                'Keywords': key,
+                'ResponseGroup': 'Images, ItemAttributes'
+            }, function(err, results) { // you can add a third parameter for the raw xml response, "results" here are currently parsed using xml2js
+                if (err) {
+                    reject(err);
+                } else {
+                    if (results && results.ItemSearchResponse && results.ItemSearchResponse.Items[0].Item) {
+                        results.ItemSearchResponse.Items[0].Item.forEach(function(item) {
+                            items.push({
+                                category: undefined,
+                                label: item.ItemAttributes[0].Title[0],
+                                thumbnail: item.ImageSets[0].ImageSet[0].ThumbnailImage[0].URL[0],
+                                rate: undefined,
+                                tmp: true
+                            })
+                        })
+                        resolve(items);
+                    } else {
+                        resolve(items);
+                    }
+
+                }
+            });
+        });
         return promise;
     }
 

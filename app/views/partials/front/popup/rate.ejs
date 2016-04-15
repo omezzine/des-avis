@@ -1,4 +1,4 @@
-<% if (current_user) { %>
+<% if ((current_user) && (!user_rate)) { %>
 <div class="modal fade" id="popuprate" tabindex="-1" role="dialog" aria-labelledby="myavisModalLabel">
   <div class="modal-dialog" role="document">
     <form class="form" role="form" method="post" action="/ajax/items/popuprate" data-popuprate-form>

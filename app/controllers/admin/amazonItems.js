@@ -15,7 +15,6 @@ class AmazonItemsController {
         const page = req.query.page || 1;
         const limit = req.query.limit || 10;
         const query = {
-                provider: 'Auto',
                 category: req.query.category || undefined,
                 checked: req.query.checked || false,
                 created_at: {
@@ -43,6 +42,14 @@ class AmazonItemsController {
                 allowCreate: (query.checked == "true") ? (false) : (true)
             });
         });
+    }
+
+    runAutoFetch(req, res) {
+        AmazonHelper.FetchItems().then(function() {
+            res.redirect('/admin/amazon/items');
+        }, function(err) {
+            res.redirect('/admin/amazon/items');
+        })
     }
 
     // Create items from amazon

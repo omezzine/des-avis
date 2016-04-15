@@ -10,7 +10,6 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const mongoosastic = require('mongoosastic');
 const mongoosePaginate = require('mongoose-paginate');
 const getSlug = require('speakingurl');
 
@@ -66,7 +65,7 @@ var ItemSchema = new Schema({
         }]
     },
     provider: {
-        enum: ['Local', 'Amazon'],
+        enum: ['Local', 'Amazon', 'Front'],
         type: String,
         default: 'Local'
     },

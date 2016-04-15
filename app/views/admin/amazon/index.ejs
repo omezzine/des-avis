@@ -1,5 +1,9 @@
 <% layout('/layouts/admin') -%>
-
+<div class="row">
+    <div class="col-md-3 no-padding">
+        <a style="margin: 10px 0;" class="btn btn-warning" href="/admin/amazon/runAutoFetch">Run Auto Fetch</a>
+    </div>
+</div>
 <div class="row filters">
     <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
     <%- partial('partials/admin/_categories_filter', {categories: categories}) %>

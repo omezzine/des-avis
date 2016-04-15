@@ -3,19 +3,27 @@
 <div class="row">
     <form role="form" action="/admin/items" method="POST">
         <%- partial('partials/_csrf_and_method', {method: "PUT"}) %>
+        <input type="hidden" value="<%=item._id%>" name="id">
         <div class="form-group">
             <label>Label</label>
             <input class="form-control" type="text" name="label" value="<%= item.label %>">
         </div>
         <div class="form-group">
-            <label>parent</label>
-            <select class="form-control" name="parent">
+            <label>Category</label>
+            <select class="form-control" name="category">
                 <% categories.forEach(function(category){ %>
                     <option value="<%=category._id%>" <%=(item.category === category._id)?("selected"):("")%> ><%=category.label%></option>
                 <% }) %>
             </select>
         </div>
-        <button type="submit" class="btn btn-default">Create</button>
+        <div class="form-group">
+            <label>Approuved:</label>
+            <select class="form-control" name="approuved">
+                <option value="false" <%=(item.approuved === false)?("selected"):("") %> >False</option>
+                <option value="true" <%=(item.approuved === true)?("selected"):("") %> >True</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default">update</button>
         <button type="reset" class="btn btn-default">Reset</button>
     </form>
 </div>
