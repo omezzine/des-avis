@@ -6,6 +6,7 @@ const winston = require('winston');
 
 // Init The Application
 const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || 'development';
 const app = express();
 
 
@@ -58,5 +59,5 @@ require('./config/redis');
 
 // Run Cron
 require('./config/cron');
-
+console.log('NodeJs running in ' + env + ' env');
 console.log('Express app started on port ' + port);

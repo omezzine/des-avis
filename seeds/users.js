@@ -18,6 +18,8 @@ User.findOne({
         user.save(function(err) {
             if (err) {
                 console.log(err);
+            } else {
+                console.log('Admin Has been created');
             }
         });
     }
