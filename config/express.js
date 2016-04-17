@@ -54,7 +54,8 @@ module.exports = function(app) {
             client: redisClient
         }),
         cookie: {
-            expires: new Date(Date.now() + 3600000)
+            expires: new Date(Date.now() + 3600000),
+            maxAge: 3600000
         }
     }));
 

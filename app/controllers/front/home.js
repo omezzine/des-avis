@@ -6,6 +6,7 @@ const ItemsHelpers = rootRequire('app/helpers/items');
 const CategoriesHelper = rootRequire('app/helpers/categories');
 const CommentsHelper = rootRequire('app/helpers/comments');
 
+
 class HomeController {
 
     index(req, res) {
