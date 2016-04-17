@@ -12,5 +12,13 @@ echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | sudo
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 
-echo "*** Installing Redis ***"
-sudo apt-get install redis-server
+echo "*** Installing latest Redis ***"
+sudo apt-get install build-essential -y
+wget http://download.redis.io/releases/redis-stable.tar.gz
+tar xzf redis-stable.tar.gz
+cd redis-stable
+make
+sudo apt-get install tcl8.5 -y
+sudo make install
+cd utils
+sudo ./install_server.sh

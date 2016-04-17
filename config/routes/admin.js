@@ -62,6 +62,7 @@ module.exports = function(app) {
 	let categoriesRouter = express.Router();
 	categoriesRouter
 		.get('/', CategoriesController.index)
+		.get('/json', CategoriesController.getJson)
 		.post('/', CategoriesController.create)
 		.get('/:id/edit', CategoriesController.edit)
 		.put('/', CategoriesController.update)

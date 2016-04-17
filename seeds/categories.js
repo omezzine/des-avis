@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
-const data = require('./data/categories');
+const data = require('./data/categories.json');
 
 Category.findOne({}, function(err, category) {
     if (!err && !category) {

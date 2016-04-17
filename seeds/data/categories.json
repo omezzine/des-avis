@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-const ObjectId = mongoose.Schema.Types.ObjectId;
-module.exports = [{
+[{
     "_id": "56dc7fc0f287292c1fcbfc6c",
     "label": "Beauté et Parfum",
     "amazon_label": "Beauty",
@@ -120,4 +118,92 @@ module.exports = [{
     "amazon_label": "Software",
     "slug": "logiciels",
     "parent": "56eb1c7f9911dcd42a6ec52a"
-}];
+}, {
+    "_id": "56dc80bff287292c1fcbfc98",
+    "label": "Luminaires et Eclairage",
+    "amazon_label": "Lighting",
+    "slug": "luminaires-et-eclairage",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
+    "_id": "56dc80cbf287292c1fcbfc9a",
+    "label": "Montres",
+    "amazon_label": "Watches",
+    "slug": "montres",
+    "parent": "56eb1bb09911dcd42a6ec526"
+}, {
+    "_id": "56dc80d6f287292c1fcbfc9c",
+    "label": "Musique : CD & Vinyles",
+    "amazon_label": "Music",
+    "slug": "musique-cd-et-vinyles",
+    "parent": "56eb1c329911dcd42a6ec528"
+}, {
+    "_id": "56dc80dff287292c1fcbfc9e",
+    "label": "Musique classique",
+    "amazon_label": "Classical",
+    "slug": "musique-classique",
+    "parent": "56eb1c329911dcd42a6ec528"
+}, {
+    "_id": "56dc80ebf287292c1fcbfca0",
+    "label": "Secteur industriel & scientifique",
+    "amazon_label": "Industrial",
+    "slug": "secteur-industriel-et-scientifique",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
+    "_id": "56dc80f5f287292c1fcbfca2",
+    "label": "Sports et Loisirs",
+    "amazon_label": "SportingGoods",
+    "slug": "sports-et-loisirs",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
+    "_id": "56dc8110f287292c1fcbfca6",
+    "label": "Vêtements et accessoires",
+    "amazon_label": "Apparel",
+    "slug": "vetements-et-accessoires",
+    "parent": "56eb1bb09911dcd42a6ec526"
+}, {
+    "_id": "56eb1c329911dcd42a6ec528",
+    "slug": "livres-musique-cd-dvd",
+    "label": "Livres/Musique/CD/DVD"
+}, {
+    "_id": "56eb1f689911dcd42a6ec52e",
+    "slug": "enfant-et-bebe",
+    "label": "enfant et bébé"
+}, {
+    "_id": "56eea91f8a3785d43c79dc28",
+    "slug": "autre",
+    "label": "Autre"
+}, {
+    "_id": "56dc7f9ef287292c1fcbfc66",
+    "label": "Animalerie",
+    "amazon_label": "PetSupplies",
+    "slug": "animalerie",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
+    "_id": "56dc7facf287292c1fcbfc68",
+    "label": "Applis & Jeux",
+    "amazon_label": "MobileApps",
+    "slug": "applis-et-jeux",
+    "parent": "56eb1c7f9911dcd42a6ec52a"
+}, {
+    "_id": "56dc7fb6f287292c1fcbfc6a",
+    "label": "Bagages",
+    "amazon_label": "Luggage",
+    "slug": "bagages",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
+    "_id": "56eb1bb09911dcd42a6ec526",
+    "slug": "vetements-et-accessoires",
+    "label": "Vêtements et Accessoires"
+}, {
+    "_id": "56eb1c7f9911dcd42a6ec52a",
+    "slug": "informatique-et-hightech",
+    "label": "informatique et hightech"
+}, {
+    "_id": "56eb1d029911dcd42a6ec52c",
+    "slug": "cuisine-et-maison",
+    "label": "cuisine et maison"
+}, {
+    "_id": "56eb1fe49911dcd42a6ec530",
+    "slug": "hygiene-et-sante",
+    "label": "Hygiène et Santé"
+}]

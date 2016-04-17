@@ -21,6 +21,15 @@ class CategoriesController {
         });
     }
 
+    // Listing json
+    getJson(req, res) {
+        Category.find({})
+        .select('_id label slug amazon_label parent')
+        .exec(function(err, categories) {
+            res.status(200).json(categories);
+        });
+    }
+
     // Render New
     new(req, res) {
         CategoriesHelper.LoadAllCategories({
