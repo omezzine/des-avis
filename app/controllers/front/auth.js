@@ -6,6 +6,7 @@ const User = mongoose.model('User');
 const UsersHelper = rootRequire('app/helpers/users');
 const UsersMailer = rootRequire('app/mailers/users');
 const Utils = rootRequire('libs/utils');
+const CategoriesHelper = rootRequire('app/helpers/categories');
 
 class AuthController {
 
@@ -18,7 +19,7 @@ class AuthController {
 
     getfacebooklogin(req, res, next) {
         return passport.authenticate('facebook', {
-            scope: [ 'email', 'public_profile', 'user_photos']
+            scope: ['email', 'public_profile', 'user_photos']
         })(req, res, next);
     }
 
@@ -73,7 +74,7 @@ class AuthController {
         UsersHelper.ForgotPassword("mohamed.omezzine@gmail.com").then(function(token) {
             UsersMailer.ForgotPassword(req.headers.host, "mohamed.omezzine@gmail.com", token);
             res.status(200).json({
-                message: 'An e-mail has been sent to ' + req.body.email + ' with further instructions.'
+                message: 'Un Email a été envoyé à ' + req.body.email + ', veuillez suivre les instructions.'
             });
         }, function(err) {
             res.status(400).json({
@@ -93,44 +94,61 @@ class AuthController {
                 req.flash('error', 'Password reset token is invalid or has expired.');
                 return res.redirect('/');
             }
-            res.render('front/reset_password', {
-                user: user,
-            });
+            CategoriesHelper.LoadAllCategories({}, {
+                grouped: true
+            }).then(function(categories) {
+                res.render('front/reset_password', {
+                    user: user,
+                    two_columns: true,
+                    categories: categories
+                });
+            })
+
         });
     }
 
     NewPassword(req, res) {
-        User.findOne({
-            'local.resetPasswordToken': req.body.token,
-            'local.resetPasswordExpires': {
-                $gt: Date.now()
-            }
-        }, function(err, user) {
-            if (!user) {
-                req.flash('error', 'Password reset token is invalid or has expired.');
-                return res.redirect('/');
-            }
-
-            user.local.password = req.body.password;
-            user.local.resetPasswordToken = undefined;
-            user.local.resetPasswordExpires = undefined;
-            user.save(function(err) {
-                if (err) {
-                   req.flash('error', 'Password reset token is invalid or has expired.');                  
-                } else {
-                   req.flash('success', 'Success! Your password has been changed.');
+        console.log(req.body.password, req.body.password_confirm)
+        if (req.body.password !== req.body.password_confirm) {
+            console.log('here');
+            req.flash('error', 'La confirmation du mot de passe ne correspond pas.');
+            return res.redirect('back');
+        } else {
+            User.findOne({
+                'local.resetPasswordToken': req.body.token,
+                'local.resetPasswordExpires': {
+                    $gt: Date.now()
                 }
-                return res.redirect('/');
-            });
-            
-        })
+            }, function(err, user) {
+                if (err || !user) {
+                    req.flash('error', 'Votre demande de modification a expiré ou invalide.');
+                    return res.redirect('/');
+                }
+                user.local.password = req.body.password;
+                user.local.resetPasswordToken = undefined;
+                user.local.resetPasswordExpires = undefined;
+                user.save(function(err) {
+                    if (err) {
+                        req.flash('error', 'Votre demande de modification a expiré.');                       
+                    } else {
+                        req.flash('info', 'Votre mot de passe a été modifié.');
+                    }
+                    return res.redirect('/');
+                });
+            })
+        }
+
     }
 
     signup(req, res) {
         UsersHelper.CreateUser(req.body).then(function(data) {
-            res.status(201).json({message: 'User Has been created'});
-        }, function(err){
-            res.status(400).json({message: Utils.FormatErrors(err)});
+            res.status(201).json({
+                message: 'User Has been created'
+            });
+        }, function(err) {
+            res.status(400).json({
+                message: Utils.FormatErrors(err)
+            });
         })
     }
 

@@ -115,6 +115,10 @@ class AmazonHelper {
         });
         let promise = new Promise(function(resolve, reject) {
             Item.create(items, function(err, items) {
+                // fetch amazon data for new added items                
+                items.forEach(function(item) {
+                    ItemsHelper.ItemAmazonSearch(item);
+                });
                 resolve(items);
             });
         });

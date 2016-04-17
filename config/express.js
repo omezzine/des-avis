@@ -47,8 +47,8 @@ module.exports = function(app) {
 
 	// Set Express Session
 	app.use(session({
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
         secret: 'secret',
         store: new mongoRedis({
             client: redisClient

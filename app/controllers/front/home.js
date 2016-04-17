@@ -14,9 +14,9 @@ class HomeController {
         let categoriesPromise = CategoriesHelper.LoadAllCategories({}, {
             grouped: true
         });
-
+        
         Promise.all([categoriesPromise, itemsCountPromise, commentsCountPromise]).then(function(values) {
-            res.render('front/home', {
+            return res.render('front/home', {
                 categories: values[0],
                 itemsCount: values[1],
                 commentsCount: values[2],

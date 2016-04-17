@@ -66,8 +66,11 @@ class ItemsController {
 
     // Create new item
     create(req, res) {
-        ItemsHelper.AddNewItem(req.body).then(function(err) {
+        ItemsHelper.AddNewItem(req.body).then(function(item) {
             req.flash('info', 'New Item has been successfully created');
+            res.redirect('/admin/items');
+        }, function(err) {
+            req.flash('error', Utils.FormatErrors(err));
             res.redirect('/admin/items');
         })
     }

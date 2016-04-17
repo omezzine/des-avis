@@ -28,7 +28,15 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 }
-
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: absolute;
+    right: 10px;
+    z-index: 99999;
+}
 .cd-top.cd-is-visible {
   /* the button becomes visible */
   visibility: visible;

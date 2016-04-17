@@ -247,11 +247,12 @@ class ItemsHelper {
         });
 
         let promise = new Promise(function(resolve, reject) {
-            item.save(function(err) {
+            item.save(function(err, item) {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve()
+                    ItemsHelper.ItemAmazonSearch(item);
+                    resolve(item)
                 }
             })
         })
@@ -335,14 +336,13 @@ class ItemsHelper {
     }
 
     static ItemNeedToFetchOnAmazon(item) {
-        return true;
-        /*if (!item.category.amazon_label) {
+        if (!item.category.amazon_label) {
             return false;
         } else if ((item.amazon.last_fetch) && (new Date(item.amazon.last_fetch).getTime() + (3600000 * 12) > Date.now())) {
             return false;
         } else {
             return true;
-        }*/
+        }
     }
 
     static FormatAmazonItem(items) {
