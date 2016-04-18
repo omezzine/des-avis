@@ -22,3 +22,6 @@ sudo apt-get install tcl8.5 -y
 sudo make install
 cd utils
 sudo ./install_server.sh
+echo "*** Installing nginx ***"
+sudo apt-get install nginx
+sudo ln -s /etc/nginx/sites-available/desavis /etc/nginx/sites-enabled/desavis
