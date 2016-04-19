@@ -18,6 +18,7 @@
         <!-- jQuery -->
         <script src="/frontend/javascripts/libs/jquery.min.js"></script>
 
+        <%- partial('partials/_google_analytics') %>
     </head>
     <body>
         <%- partial('partials/_flash') %>
@@ -52,6 +53,7 @@
         <%- partial ('partials/front/popup/warning') %>
         <%- partial ('partials/front/popup/success') %>
         <%- partial ('partials/front/popup/contact') %>
+        <script data-pace-options='{"ajax": true}' src="/frontend/javascripts/libs/pace.min.js"></script>
         <script src="/frontend/javascripts/libs/datepicker.min.js"></script>
         <script src="/frontend/javascripts/libs/star-rating.min.js"></script>
         <script src="/frontend/javascripts/libs/rssb-buttons.js"></script>

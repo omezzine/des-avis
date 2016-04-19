@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
                     });
                 }, 0);
                 if (!data.tmp) {
-                    return ['<div class="row"><a href="/avis/' + data.category.slug + '/' + data.slug + '" target="_blank">',
+                    return ['<div class="col-md-12"><a href="/avis/' + data.category.slug + '/' + data.slug + '" target="_blank">',
                         '<div class="col-md-4">',
                         '<span class="thumbnail"><img src="' + data.thumbnail + '" /></span>',
                         '</div>',
@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
                         '</a></div>'
                     ].join("");
                 } else {
-                    return ['<div class="row"><a href="/avis/create" target="_blank">',
+                    return ['<div class="col-md-12"><a href="/avis/create" target="_blank">',
                         '<div class="col-md-4">',
                         '<span class="thumbnail"><img src="' + data.thumbnail + '" /></span>',
                         '</div>',

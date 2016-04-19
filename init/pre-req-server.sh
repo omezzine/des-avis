@@ -25,3 +25,5 @@ sudo ./install_server.sh
 echo "*** Installing nginx ***"
 sudo apt-get install nginx
 sudo ln -s /etc/nginx/sites-available/desavis /etc/nginx/sites-enabled/desavis
+sudo cp nginx_conf/desavis /etc/nginx/sites-available/desavis
+sudo ln -s /etc/nginx/sites-available/desavis /etc/nginx/sites-enabled/desavis

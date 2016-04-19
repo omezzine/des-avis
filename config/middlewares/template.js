@@ -18,6 +18,7 @@ module.exports = function(req, res, next) {
     res.locals.current_user = req.user || null;
     res.locals.ShowSearchBar = true;
     res.locals.url = url;
+    res.locals.env = process.env.NODE_ENV || 'development';
     res.locals.LinkGenerator = LinkGenerator;
     res.locals.current_url = req.url;
     res.locals.full_url = fullUrl(req);

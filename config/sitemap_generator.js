@@ -3,6 +3,7 @@
 const sm = require('sitemap');
 const ItemsHelper = rootRequire('app/helpers/items')
 const fs = require('fs');
+const logger = require('./logger');
 
 module.exports = function() {
 
@@ -16,8 +17,9 @@ module.exports = function() {
 			});
 			createSiteMap(urls);
 		})
+		logger.info('SiteMap Generated');
 	}, function(err) {
-		console.log(err);
+		logger.error(err);
 	})
 
 	function createSiteMap(urls) {
@@ -27,7 +29,8 @@ module.exports = function() {
 	        urls: urls
 	    });
 
-	    fs.writeFileSync("public/sitemap.xml", sitemap.toString());		
+	    fs.writeFileSync("public/sitemap.xml", sitemap.toString());
+
 	}
 
 }

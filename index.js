@@ -29,6 +29,8 @@ fs.readdirSync(path.join(__dirname, 'seeds')).forEach(function(file) {
 // BootStrap Express Config
 require('./config/express')(app);
 
+// BootStrap Cron
+require('./config/cron')();
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -36,8 +38,7 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-// Load Sitemap Generator
-require('./config/sitemap_generator')();
+
 
 // BootStrap Routes
 require('./config/routes/_bootstrap')(app);

@@ -11,8 +11,8 @@
         "pass": "devpassword01A"
     },
     "facebook": {
-        "clientID": "148258012228565",
-        "clientSecret": "d78fb9b0fbc55b653a0df0f5372ed5e3",
+        "clientID": "1734378916805931",
+        "clientSecret": "28d73d80032a54713724cdae8b21de9e",
         "callbackURL": "http://des-avis.fr/auth/facebook/callback"
     },
     "google": {
