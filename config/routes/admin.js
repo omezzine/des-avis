@@ -13,6 +13,7 @@ const SpamsController = rootRequire('app/controllers/admin/spams');
 const CommentsController = rootRequire('app/controllers/admin/comments');
 const AmazonItemsController = rootRequire('app/controllers/admin/amazonItems');
 const MessagesController = rootRequire('app/controllers/admin/messages');
+const CarQueryController = rootRequire('app/controllers/admin/carQuery');
 
 module.exports = function(app) {
 
@@ -118,5 +119,11 @@ module.exports = function(app) {
 		.delete('/:id', MessagesController.delete)
 		.post('/reply', MessagesController.reply)
 	app.use('/admin/messages', messagesRouter);
+
+	// Handle /admin/carQuery
+	let carQueryRouter = express.Router();
+	carQueryRouter
+		.get('/', CarQueryController.index)
+	app.use('/admin/carQuery', carQueryRouter);
 	
 }

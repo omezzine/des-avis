@@ -1,19 +1,26 @@
 <div class="fluid-container text-center" id="footer">
   <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <% categories.forEach(function(category) { %>
-      <div class="col-md-3 col-sm-6">
-        <h6><%=category.label%></h6>
-        <% if ((category.childrens)&&(category.childrens.length > 0)) { %>       
-        <ul class="nav nav-pills nav-stacked">
-          <%category.childrens.forEach(function(sub_cat) { %>
-          <li><a href="<%= LinkGenerator.GenerateCategoryUrl(sub_cat.slug) %>"><%=sub_cat.label%></a></li>
-          <%})%>
-        </ul>        
-        <% } %>
+    <div class="row">
+      <div class="col-lg-12">
+        <% categories.forEach(function(category) { %>
+        <div class="col-md-3 col-sm-6">
+          <h6><%=category.label%></h6>
+          <% if ((category.childrens)&&(category.childrens.length > 0)) { %>
+          <ul class="nav nav-pills nav-stacked">
+            <%category.childrens.forEach(function(sub_cat) { %>
+            <li><a href="<%= LinkGenerator.GenerateCategoryUrl(sub_cat.slug) %>"><%=sub_cat.label%></a></li>
+            <%})%>
+          </ul>
+          <% } %>
+        </div>
+        <% }) %>
+
       </div>
-      <% }) %>
+
     </div>
+    <div class="col-lg-12">
+      <p class="text-center copy-right">Copyright © 2016</p>
     </div>
   </div>
+  
+</div>

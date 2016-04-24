@@ -9,6 +9,14 @@
             <input class="form-control" type="text" name="label" value="<%= item.label %>">
         </div>
         <div class="form-group">
+            <label>Brand</label>
+            <input class="form-control" type="text" name="brand" value="<%= item.brand || '' %>">
+        </div>
+        <div class="form-group">
+            <label>Meta Description</label>
+            <input class="form-control" type="text" name="meta_description" value="<%= item.meta_description || '' %>">
+        </div>
+        <div class="form-group">
             <label>Category</label>
             <select class="form-control" name="category">
                 <% categories.forEach(function(category){ %>
@@ -17,10 +25,10 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Approuved:</label>
-            <select class="form-control" name="approuved">
-                <option value="false" <%=(item.approuved === false)?("selected"):("") %> >False</option>
-                <option value="true" <%=(item.approuved === true)?("selected"):("") %> >True</option>
+            <label>Approved:</label>
+            <select class="form-control" name="approved">
+                <option value="false" <%=(item.approved === false)?("selected"):("") %> >False</option>
+                <option value="true" <%=(item.approved === true)?("selected"):("") %> >True</option>
             </select>
         </div>
         <button type="submit" class="btn btn-default">update</button>

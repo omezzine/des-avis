@@ -9,7 +9,7 @@
             <div class="well box-shadow item-box">
                 <div class="row clearfix">
                     <div class="col-md-6">
-                        <% if (item.approuved) { %>
+                        <% if (item.approved) { %>
                         <span class="pull-left status approuved">
                             <i class="fa fa-check-circle"></i> Verifié
                         </span>
@@ -41,8 +41,12 @@
                         </div>
                         <div class="product-rating">
                             <input data-rating-display type="number" class="kv-fa rating-loading" data-rtl="false" value="<%= item.rate %>">
+                            <% if (item.rate) { %>
                             <span class="avg">(<%= item.rate %> / 5)</span>
                             <span class="nbr">(<%=item.rates.length%> Utilisateurs)</span>
+                            <% } else {%>
+                                (Aucun Avis)
+                            <% } %>
                         </div>
                     </div>
                 </div>

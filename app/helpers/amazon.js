@@ -219,7 +219,7 @@ class AmazonHelper {
                     if (results && results.ItemSearchResponse && results.ItemSearchResponse.Items[0].Item) {
                         results.ItemSearchResponse.Items[0].Item.forEach(function(item) {
                             items.push({
-                                category: undefined,
+                                category: item.ItemAttributes[0].ProductTypeName[0],
                                 label: item.ItemAttributes[0].Title[0],
                                 thumbnail: item.ImageSets[0].ImageSet[0].ThumbnailImage[0].URL[0],
                                 rate: undefined,

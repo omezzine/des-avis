@@ -14,7 +14,11 @@
 								<span class="item-title"><%= item.label %></span>
 								<div class="product-rating sm">
 									<input data-rating-display type="number" class="kv-fa rating-loading" data-rtl="false" value="<%= item.rate %>">
+									<% if (item.rate) { %>
 									<span class="avg">(<%= item.rate %> / 5)</span>
+									<% } else {%>
+										(Aucun Avis)
+									<% } %>
 								</div>
 							</div>
 						</a>

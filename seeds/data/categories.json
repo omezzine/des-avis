@@ -173,6 +173,12 @@
     "slug": "autre",
     "label": "Autre"
 }, {
+    "_id": "571911451457eb682722a0f4",
+    "slug": "autre",
+    "label": "Autre",
+    "amazon_label": "All",
+    "parent": "56eea91f8a3785d43c79dc28"
+}, {
     "_id": "56dc7f9ef287292c1fcbfc66",
     "label": "Animalerie",
     "amazon_label": "PetSupplies",
@@ -206,4 +212,9 @@
     "_id": "56eb1fe49911dcd42a6ec530",
     "slug": "hygiene-et-sante",
     "label": "Hygiène et Santé"
+}, {
+    "_id": "571bd3173082a1843307cbb3",
+    "slug": "automobile",
+    "label": "automobile",
+    "parent": "56eea91f8a3785d43c79dc28"
 }]

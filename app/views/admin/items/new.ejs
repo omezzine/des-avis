@@ -8,6 +8,10 @@
             <input class="form-control" type="text" name="label" value="<%= item.label %>">
         </div>
         <div class="form-group">
+            <label>Brand</label>
+            <input class="form-control" type="text" name="brand" value="<%= item.brand || '' %>">
+        </div>
+        <div class="form-group">
             <label>Category</label>
             <select class="form-control" name="category">
                 <% categories.forEach(function(category){ %>

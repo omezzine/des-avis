@@ -13,6 +13,7 @@ const redisClient = require('./redis');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const templateMiddleware = require('./middlewares/template');
+const helmet = require('helmet');
 
 module.exports = function(app) {
 	
@@ -21,7 +22,9 @@ module.exports = function(app) {
 	app.set('views', path.join(PATH_ROOT, 'app/views'));
 	app.set('view engine', 'ejs');
 
-
+    // Protect the app
+    app.use(helmet());
+    
 	// Set Static folders
 	app.use(express.static(path.join(PATH_ROOT, 'public')));
     app.use(favicon(path.join(PATH_ROOT, '/public/favicon.ico')));

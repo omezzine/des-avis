@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
+const CategoriesHelper = rootRequire('app/helpers/categories');
 const Item = mongoose.model('Item');
 const _ = require('lodash');
 const OperationHelper = require('apac').OperationHelper;
@@ -181,7 +182,7 @@ class ItemsHelper {
 
     static GetRelatedItems(item) {
         let promise = new Promise(function(resolve, reject) {
-            if ((item.related_items.last_check) && (new Date(item.related_items.last_check).getTime() + (3600000 * 24) > Date.now())) {
+            if ((item.related_items.last_check) && (new Date(item.related_items.last_check).getTime() + (3600000 * 12) > Date.now())) {
                 // Just populate                
                 Item.find({
                     _id: {
@@ -199,11 +200,21 @@ class ItemsHelper {
                 // Check Again
                 Item.find({
                     category: item.category._id,
-                    label: {
-                        $regex: item.label.split(" ")[0],
-                        $options: "i"
+                    $or: [{
+                        label: {
+                            $regex: item.label.split(" ")[0],
+                            $options: "i"
+                        }
+                    }, {
+                        label: {
+                            $regex: item.label.split(" ")[1],
+                            $options: "i"
+                        }
+                    }],
+                    _id: {
+                        $ne: item.id
                     }
-                }).limit(4).exec(function(err, items) {
+                }).select('_id slug label rate thumbnail').limit(4).lean().exec(function(err, items) {
                     if (err) {
                         console.log(err);
                         reject([])
@@ -242,7 +253,7 @@ class ItemsHelper {
         let item = new Item({
             label: params.label,
             category: params.category,
-            approuved: true,
+            approved: true,
             provider: 'Local'
         });
 
@@ -265,7 +276,7 @@ class ItemsHelper {
             ItemsHelper.LoadItemById(newitem.id).then(function(item) {
                 item.label = newitem.label;
                 item.category = newitem.category;
-                item.approuved = newitem.approuved;
+                item.approved = newitem.approved;
                 item.save(function(err, item) {
                     if (err) {
                         reject(err);
@@ -422,6 +433,38 @@ class ItemsHelper {
         } else {
             return undefined;
         }
+    }
+
+    static createItemFromSearchBar(label, category_label) {
+        let promise = new Promise(function(resolve, reject) {
+            CategoriesHelper.GetCategoryIdByAmazonLabel(category_label).then(function(cat_id) {
+                let item = new Item({
+                    category: cat_id,
+                    label: label,
+                    approved: false,
+                    provider: 'Front'
+                });
+                item.save(function(err, item) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        Item.populate(item, {
+                            path: 'category'
+                        }, function(err, item) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                ItemsHelper.ItemAmazonSearch(item).then(function(item) {
+                                    resolve(item);
+                                });
+                            }
+                        })
+                    }
+                });
+            })
+        });
+
+        return promise;
     }
 
 }

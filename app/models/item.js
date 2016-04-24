@@ -25,7 +25,10 @@ var ItemSchema = new Schema({
     slug: {
         type: String
     },
-    approuved: {
+    brand: {
+        type: String
+    },
+    approved: {
         type: Boolean,
         default: false
     },
@@ -71,6 +74,9 @@ var ItemSchema = new Schema({
     },
     spams: {
         type: Array
+    },
+    meta_description: {
+        type: String
     },
     created_at: {
         type: Date,

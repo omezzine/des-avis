@@ -62,4 +62,6 @@ module.exports = function(app) {
         .post('/rate', AjaxActionsController.itemRate)
         .post('/popuprate', AjaxActionsController.popuprate);
     app.use('/ajax/items', authorization.requireLogin(), itemsRouter);
+
+    app.use('/createItem/:category/:label', AjaxActionsController.createItem);
 }

@@ -17,7 +17,7 @@ class ItemsController {
         let limit = req.query.limit || 10;
         let query = {
             category: req.query.category || undefined,
-            approuved: (req.query.not_approuved == "true")?(false):(undefined)
+            approved: (req.query.not_approved == "true")?(false):(undefined)
         }
         if (req.query.query) {
             query.label = {

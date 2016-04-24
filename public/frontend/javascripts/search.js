@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
 
     function hightlight(text) {
         var search = $search.val();
-        return text.replace(search, "<strong>" + search + "</strong>");
+        return text.toUpperCase().replace(search.toUpperCase(), "<strong>" + search.toUpperCase() + "</strong>").toLowerCase();
     }
     function rate(rate) {
         if (rate) {
@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
                         '</a></div>'
                     ].join("");
                 } else {
-                    return ['<div class="col-md-12"><a href="/avis/create" target="_blank">',
+                    return ['<div class="col-md-12"><a href="/createItem/'+data.category+'/'+data.label+'" target="_blank">',
                         '<div class="col-md-4">',
                         '<span class="thumbnail"><img src="' + data.thumbnail + '" /></span>',
                         '</div>',

@@ -3,7 +3,7 @@
 <div class="row filters">
     <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
     <%- partial('partials/admin/_categories_filter', {categories: categories}) %>
-    <%- partial('partials/admin/_checkbox_filter', {name: "not_approuved", title: "Only Not Approuved", checked_value: true, not_checked_value: false})%>
+    <%- partial('partials/admin/_checkbox_filter', {name: "not_approved", title: "Only Not Approved", checked_value: true, not_checked_value: false})%>
     <%- partial('partials/admin/_query_search_filter')%>
 </div>
 
@@ -11,7 +11,7 @@
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>Approuved</th> 
+                <th>Approved</th> 
                 <th>Thumbnail</th>             
                 <th>Label</th>
                 <th>Visits</th>
@@ -23,7 +23,7 @@
         <tbody>
             <% items.forEach(function(item){ %>
             <tr>
-                <th class="text-center"><%-(item.approuved)?("<i class='fa fa-check'></i>"):("")%></th>
+                <th class="text-center"><%-(item.approved)?("<i class='fa fa-check'></i>"):("")%></th>
                 <th class="thumbnail">
                     <img src="<%=item.thumbnail%>" alt="<%=item.label%>"/>
                 </th>

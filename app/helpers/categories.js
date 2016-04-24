@@ -82,6 +82,17 @@ class CategoriesHelper {
         return promise;
     }
 
+    static GetCategoryIdByAmazonLabel(label) {
+        let promise = new Promise(function(resolve, reject) {
+            CategoriesHelper.LoadAllCategories({}, {grouped: false}).then(function(categories) {
+                let cat_id = categories.filter((cat) => (cat.amazon_label == label))[0]._id;
+                resolve(cat_id);
+            })
+        })
+
+        return promise;
+    }
+
     static AddNewCategory(params) {
         let category = new Category({
             label: params.label,

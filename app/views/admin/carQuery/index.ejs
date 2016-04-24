@@ -1,0 +1,67 @@
+<% layout('/layouts/admin') -%>
+<div class="row">
+    <div class="col-md-3 no-padding">
+        <a style="margin: 10px 0;" class="btn btn-warning" href="/admin/amazon/runAutoFetch">Run Auto Fetch</a>
+    </div>
+</div>
+<div class="row filters">
+    <%- partial('partials/admin/_count_per_page', {current_limit: current_limit}) %>
+    <%- partial('partials/admin/_categories_filter', {categories: categories}) %>
+    <%- partial('partials/admin/_from_to_filter', {title: 'Created From/To'}) %>
+    <%- partial('partials/admin/_checkbox_filter', {name: "checked", title: "Added To items", checked_value: true, not_checked_value: false})%>
+</div>
+
+<form id="form" method="post">
+<%- partial('partials/_csrf_and_method', {method: "POST"}) %>
+<div class="row" style="margin-bottom: 10px;">
+    <div class="col-md-8">
+        <% if (allowCreate) { %>
+        <button type="submit" data-action="/admin/amazon/create" id="create-items" class="btn btn-default"> Create Items </button>
+        <% } %>
+        <button type="submit" data-action="/admin/amazon/delete" id="delete-items" class="btn btn-danger"> Delete Items </button>
+    </div>
+</div>
+<div class="row">    
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">        
+                    <div class="checkbox-inline">
+                        <label><input type="checkbox" id="select-all"/> All </label>
+                    </div>
+                </th>
+                <th>Thumbnail</th>
+                <th>Label</th>
+                <th>Category</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach(function(item){ %>
+            <tr>
+                <th class="text-center"><input type="checkbox" name="item[<%=item._id%>][id]" value="<%=item._id%>"/></th>
+                <th class="thumbnail" style="margin-bottom: 0px;">
+                    <input type="hidden" name="item[<%=item._id%>][thumbnail]" value="<%=item.thumbnail%>" />
+                    <img src="<%=item.thumbnail%>" alt=""/>
+                </th>
+                <td>
+                <% if (allowCreate) { %>
+                <textarea name="item[<%=item._id%>][label]" style="width: 100%; display:block;"><%= item.label %></textarea>
+                <% } else { %>
+                    <%= item.label %>
+                <% }%>
+                </td>
+                <td>
+                    <input type="hidden" name="item[<%=item._id%>][category]" value="<%=item.category._id%>" />
+                    <%= (item.category)?(item.category.label):('') %>
+                </td>
+                <td><%=moment(item.created_at).format('DD/MM/YYYY')%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table>   
+</div>
+</form>
+<div class="row">
+    <%- partial('partials/admin/_pagination', {baseUrl: "/admin/items", pages: pages, current_page: current_page}) %>
+</div>

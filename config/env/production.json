@@ -16,8 +16,8 @@
         "callbackURL": "http://des-avis.fr/auth/facebook/callback"
     },
     "google": {
-        "clientID": "1055073594096-bfkq57epgk1fo0mlg00fr5avbb4d7t39.apps.googleusercontent.com",
-        "clientSecret": "WXhvWDS6rAF4AmLBY1d9DwyF",
+        "clientID": "10892806996099-geg8l2gd5ha7gigrkgfafosuv8hh9ako.apps.googleusercontent.com",
+        "clientSecret": "YZO1gVb9DLzC-z_O4bbq_J5p",
         "callbackURL": "http://des-avis.fr/auth/google/callback"
     },
     "amazon": {
