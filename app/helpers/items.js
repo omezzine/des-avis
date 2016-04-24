@@ -379,8 +379,13 @@ class ItemsHelper {
     }
 
     static GetThumbnailFromAmazon(items) {
-        if (!items || items.length === 0) return undefined;
-        return items[0].SmallImage[0].URL[0] || items[0].MediumImage[0].URL[0] || items[0].LargeImage[0].URL[0];
+        if (!items ||  !items[0] || items.length === 0) return undefined;
+
+        if (items[0].SmallImage && items[0].SmallImage[0].URL[0]) return items[0].SmallImage[0].URL[0];
+        if (items[0].MediumImage && items[0].MediumImage[0].URL[0]) return items[0].MediumImage[0].URL[0];
+        if (items[0].LargeImage && items[0].LargeImage[0].URL[0]) return items[0].LargeImage[0].URL[0];
+
+        return undefined;
     }
 
     static LoadTopItems() {

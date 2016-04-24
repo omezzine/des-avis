@@ -2,5 +2,6 @@
 start_services.bat
 node_modules/*
 # Other files and folders
+public/sitemap.xml
 logs/*
 npm-debug.log
